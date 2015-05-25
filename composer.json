@@ -1,0 +1,22 @@
+{
+  "name": "idfly/components",
+  "description": "idfly components - extension for yii2",
+  "keywords": [
+    "yii2",
+    "extension",
+    "cpa-tracker"
+  ],
+  "type": "yii2-extension",
+  "support": {
+    "source": "https://bitbucket.org/idfly/yii2-components"
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "yiisoft/yii2": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "idfly\\": ""
+    }
+  }
+}
