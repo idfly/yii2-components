@@ -111,10 +111,6 @@ body {
   width: 8.33333333%;
 }
 
-.map-search-result {
-    line-height: 1.25em;
-}
-
 .list-element:hover {
     background: #eee;
 }
@@ -200,10 +196,6 @@ body .btn-info {
 
 .form-group-sm .control-label {
     margin-bottom: 0px;
-}
-
-a {
-    line-height: 12px;
 }
 
 .btn.active {
