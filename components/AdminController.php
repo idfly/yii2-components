@@ -2,9 +2,9 @@
 
 namespace idfly\components;
 
-use \idfly\components\QueryHelper;
+use yii\helpers\ArrayHelper;
 
-class BaseController extends \idfly\components\Controller {
+class AdminController extends \idfly\components\Controller {
 
     public $layout = 'admin.php';
 
@@ -14,28 +14,7 @@ class BaseController extends \idfly\components\Controller {
     protected $_filters;
     protected $_lastSavedElement;
 
-    public function beforeAction($action) {
-        $user = \app\models\User::requireCurrent();
-        $user->group->requireAccess($_SERVER['REQUEST_URI']);
-        $this->_appendFilters($action);
-        return parent::beforeAction($action);
-    }
-
-    public function _appendFilters($action) {
-        $this->_filters =
-            \app\models\Filter::find()->
-            where(['key' => $this->_getKey() . '.' .$action->id])->
-            andWhere('`filter`.`id` IN (
-                SELECT `filter_id`
-                    FROM `filter_group`
-                    WHERE `filter_group`.`group_id` = :group_id
-            ) OR (
-                SELECT COUNT(*)
-                    FROM `filter_group`
-                    WHERE `filter_group`.`filter_id` = `filter`.`id`
-            ) = 0', ['group_id' => \app\models\User::getCurrent()->group_id])->
-            all();
-    }
+    protected $viewPath = 'admin/views/layouts/admin';
 
     public function actionIndex() {
         $list = $this->_getList();
@@ -45,7 +24,7 @@ class BaseController extends \idfly\components\Controller {
         if(file_exists($path)) {
             $view = 'index';
         } else {
-            $view = '@app/admin/views/base/index.php';
+            $view = '@app/' . $this->viewPath . '/index.php';
         }
 
         $this->registerJs('index');
@@ -56,7 +35,6 @@ class BaseController extends \idfly\components\Controller {
             '_elements' => $list,
             '_key' => $key,
             '_keyOne' => $this->_getKey(false),
-            '_query' => QueryHelper::calculate(\Yii::$app->request->get()),
             '_title' => $this->_getTitle('index'),
             '_list' => $this->_resolveView('index-list', true),
             '_listFooter' => $this->_resolveView('index-list-footer', true),
@@ -192,7 +170,7 @@ class BaseController extends \idfly\components\Controller {
         }
 
         if($get === null) {
-            $get = QueryHelper::calculate(\Yii::$app->request->get());
+            $get = \Yii::$app->request->get();
         }
 
         return $this->_getQuery(
@@ -296,17 +274,17 @@ class BaseController extends \idfly\components\Controller {
     protected function _resolveView($view, $fullPath = false) {
         $path = $this->module->getViewPath() . '/' . $this->_getKey() .
             '/' . $view . '.php';
+
         if(file_exists($path)) {
             if($fullPath) {
-                $view = $this->module->getViewPath() . '/' .$this->_getKey() .
-                    '/' . $view . '.php';
+                $view = $path;
             }
         } else {
             if($fullPath) {
-                $view = $this->module->getViewPath() . '/base/' . $view .
-                    '.php';
+                $view = \yii::getAlias('@app') . '/' . $this->viewPath . '/' .
+                    $view .'.php';
             } else {
-                $view = '@app/admin/views/base/' . $view . '.php';
+                $view = '@app/' . $this->viewPath . '/' . $view . '.php';
             }
         }
 

@@ -1,0 +1,134 @@
+body {
+
+}
+
+.to-left {
+    float: left;
+}
+
+.to-right {
+    float: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.inline {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+.block {
+    display: block;
+}
+
+.right {
+    text-align: right;
+}
+
+.bg-highlight {
+    padding: 0 5px;
+    background-color: purple;
+    color: white;
+}
+
+a.bg-highlight {
+    background-color: purple;
+    color: white;
+}
+
+.color-red {
+    color: red;
+}
+
+.color-green {
+    color: green;
+}
+
+.color-gray {
+    color: gray;
+}
+
+.content-body {
+    padding: 10px;
+}
+
+.comment {
+    font-size: 10px;
+    color: gray;
+    line-height: 1.25em;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+
+.no-padding {
+    padding: 0px;
+}
+
+.no-padding-col {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.no-padding-left {
+    padding-left: 0px;
+}
+
+.no-padding-right {
+    padding-right: 0px;
+}
+
+.padding-top {
+    padding-top: 16px;
+}
+
+.no-margin {
+    margin: 0px;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.margin-top {
+    margin-top: 16px;
+}
+
+.margin-bottom {
+    margin-bottom: 16px;
+}
+
+.margin-left {
+    margin-left: 16px;
+}
+
+.font-large {
+    font-size: 1.25em;
+    line-height: 1.25em;
+}
+
+.font-small {
+    font-size: 0.75em;
+    line-height: 1.25em;
+}
+
+.help-block {
+    font-size: 10px;
+}
+
+.ball-scale-multiple > div {
+  background: black;
+}
+
+.error-msg {
+    color: red;
+    font-size: 10px;
+    line-height: 10px;
+    display: inline-block;
+}
