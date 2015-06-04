@@ -19,10 +19,23 @@ namespace idfly\components;
 class AuthorizationForm extends \yii\base\Model
 {
 
-    public $password;
+    /**
+     * Поле модели, которое будет использоваться для логина.
+     * @var string
+     */
     public $loginField = 'login';
+
+    /**
+     * Класс модели, который будет использоваться для логина. Модель должна
+     * подключать трейт Authorization или имплементировать интерфейс этого
+     * трейта.
+     * @var string
+     */
     public $modelClass = 'app\models\User';
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -30,6 +43,9 @@ class AuthorizationForm extends \yii\base\Model
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [
@@ -38,6 +54,10 @@ class AuthorizationForm extends \yii\base\Model
         ];
     }
 
+    /**
+     * Выполнить авторизацию.
+     * @return boolean
+     */
     public function login()
     {
         if(!$this->validate()) {

@@ -5,10 +5,7 @@ namespace idfly\components;
 /**
  * Базовый контроллер; добавляет два protected-метода в контроллеры:
  *
- * _redirectBack($default = null) - вернуть пользователя назад, если параметр
- * _redirect установлен в get-параметрах; если параметра _redirect нет, тогда
- * будет использован роут $default из аргументов; если $default равен null,
- * тогда будет исполльзован путь /[module]/[controller]/[index]
+ * _redirectBack($default = null) -
  *
  * _getElement($id, $class = null) - получить элемент с указанным идентификатором
  * указанного класса; если класс не указан, тогда для поиска будет использован
@@ -17,7 +14,25 @@ namespace idfly\components;
  */
 class Controller extends \yii\web\Controller
 {
+    /**
+     * Класс модели, с которым работет контроллер
+     * @var [type]
+     */
+    protected $modelClass;
 
+    /**
+     * Вернуть пользователя назад, если параметр _redirect установлен в
+     * get-параметрах;
+     *
+     * Если параметра _redirect нет, тогда будет использован роут $default из
+     * аргументов
+     *
+     * Если $default равен null, тогда будет исполльзован путь
+     * /[module]/[controller]/[index]
+     *
+     * @param  string $default путь по умолчанию для перенаправления пользователя
+     * @return yii\web\Response description
+     */
     protected function _redirectBack($default = null)
     {
         $url = \Yii::$app->request->get('_redirect');
@@ -30,9 +45,21 @@ class Controller extends \yii\web\Controller
             }
         }
 
-        $this->redirect($url);
+        return $this->redirect($url);
     }
 
+    /**
+     * Найти элемент с заданным id и заданным классом; если элемент не найден,
+     * то будет выброшено исключение; если класс не задан, то будет использован
+     * класс по умолчанию ($modelClass). Если оба класса не заданы, то будет
+     * выброшено исключение.
+     *
+     * @param  integer $id идентификатор
+     * @param  string $class класс
+     * @throws \Exception
+     * @throws \yii\web\HttpException
+     * @return \yii\base\Model
+     */
     protected function _getElement($id, $class = null)
     {
         if(empty($class)) {

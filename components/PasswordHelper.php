@@ -4,9 +4,18 @@ namespace idfly\components;
 
 use \yii\helpers\ArrayHelper;
 
+/**
+ * Хелпер для работы с паролями.
+ */
 class PasswordHelper
 {
 
+    /**
+     * Сгенерировать пароль. Поддержка опций запланирована.
+     *
+     * @param  array $options Опции
+     * @return [type]          [description]
+     */
     public function generate($options = [])
     {
         $alphabet =

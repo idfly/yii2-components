@@ -53,6 +53,12 @@ trait Authorization
     public $_password;
     private static $_current;
 
+    /**
+     * Установить текущего пользователя в сессиюю. Установит значение CLASS.id,
+     * CLASS.password в сессиию. Если передан null, тогда отменит авторизацию.
+     * У модели должны быть свойства id и _password
+     * @param \yii\base\Model $user
+     */
     public static function setCurrent($user)
     {
         if(empty($user)) {
@@ -64,6 +70,12 @@ trait Authorization
         }
     }
 
+    /**
+     * Запросить текущего авторизированного пользователя. Если текущий
+     * пользователь не авторизирован, то выбросит AuthorizationRequired
+     * @throws \idfly\components\AuthorizationRequired
+     * @return \yii\base\Model
+     */
     public static function requireCurrent()
     {
         $current = self::getCurrent();
@@ -75,6 +87,11 @@ trait Authorization
         return $current;
     }
 
+    /**
+     * Запросить идентификатор текущего авторизированного пользователя. Если
+     * пользователь неавторизирован, вернёт null.
+     * @return integer
+     */
     public static function getCurrentId()
     {
         $user = self::getCurrent();
@@ -85,6 +102,11 @@ trait Authorization
         return $user->id;
     }
 
+    /**
+     * Запросить текущего авторизированного пользователя (инстанцию модели).
+     * Если пользователь неавторизирован, вернёт null.
+     * @return \yii\base\Model
+     */
     public static function getCurrent()
     {
         if(empty(self::$current)) {
@@ -105,22 +127,36 @@ trait Authorization
         return self::$_current;
     }
 
+    /**
+     * Проверить пароль пользователя
+     * @param  string $password пароль в открытом виде
+     * @return boolean
+     */
     public function checkPassword($password)
     {
         return \yii::$app->security->validatePassword($password,
             $this->_password);
     }
 
+    /**
+     * beforeSave-хелпер; вызывает _setPasswordHash
+     * @inheritdoc
+     */
     public function beforeSave($insert)
     {
         if(!parent::beforeSave($insert)) {
             return false;
         }
 
-        return $this->_setPasswordHash($insert);
+        $this->_setPasswordHash($insert);
+        return true;
     }
 
-    protected function _setPasswordHash($insert)
+    /**
+     * Конвертировать пароль в открытом виде в хэш. Нужно обязательно вызвать
+     * этот метод в beforeSave, если beforeSave переопределён в подклассе.
+     */
+    protected function _setPasswordHash()
     {
         if(empty($this->password)) {
             $this->password = $this->_password;
@@ -128,16 +164,22 @@ trait Authorization
             $this->password = \yii::$app->security->
                 generatePasswordHash($this->password, 10);
         }
-
-        return true;
     }
 
+    /**
+     * afterFind-хелпер; вызывает _hidePassword
+     * @return [type] [description]
+     */
     public function afterFind()
     {
         $this->_hidePassword();
         return parent::afterFind();
     }
 
+    /**
+     * Скрыть пароль из паблика. Нужно обязательно вызвать этот метод в
+     * afterFind, если afterFind переопределён в подклассе.
+     */
     protected function _hidePassword()
     {
         $this->_password = $this->password;
