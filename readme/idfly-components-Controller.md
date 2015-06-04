@@ -3,11 +3,9 @@ idfly\components\Controller
 
 Базовый контроллер; добавляет два protected-метода в контроллеры:
 
-_redirectBack($default = null) -
+- _redirectBack($default = null)
+  - _getElement($id, $class = null)
 
-_getElement($id, $class = null) - получить элемент с указанным идентификатором
-указанного класса; если класс не указан, тогда для поиска будет использован
-$this->modelClass; если $id пуст или  элемент не найден, тогда класс выбросит
 \yii\web\HttpException(404)
 
 
