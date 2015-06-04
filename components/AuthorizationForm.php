@@ -16,26 +16,30 @@ namespace idfly\components;
  *    'modelClass' => 'app\models\Admin',
  * ]);
  */
-class AuthorizationForm extends \yii\base\Model {
+class AuthorizationForm extends \yii\base\Model
+{
 
     public $password;
     public $loginField = 'login';
     public $modelClass = 'app\models\User';
 
-    public function rules() {
+    public function rules()
+    {
         return [
             [[$this->loginField, 'password'], 'required'],
         ];
     }
 
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             $this->loginField => 'Логин',
             'password' => 'Пароль',
         ];
     }
 
-    public function login() {
+    public function login()
+    {
         if(!$this->validate()) {
             return false;
         }

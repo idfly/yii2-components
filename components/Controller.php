@@ -15,9 +15,11 @@ namespace idfly\components;
  * $this->modelClass; если $id пуст или  элемент не найден, тогда класс выбросит
  * \yii\web\HttpException(404)
  */
-class Controller extends \yii\web\Controller {
+class Controller extends \yii\web\Controller
+{
 
-    protected function _redirectBack($default = null) {
+    protected function _redirectBack($default = null)
+    {
         $url = \Yii::$app->request->get('_redirect');
         if(empty($url)) {
             if($default !== null) {
@@ -31,7 +33,8 @@ class Controller extends \yii\web\Controller {
         $this->redirect($url);
     }
 
-    protected function _getElement($id, $class = null) {
+    protected function _getElement($id, $class = null)
+    {
         if(empty($class)) {
             if(empty($this->modelClass)) {
                 throw new \Exception('$class or $this->modelClass should ' .

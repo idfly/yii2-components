@@ -16,7 +16,8 @@ use yii\helpers\ArrayHelper;
  * <?= yii\helpers\Html::encode(idfly\components\DateHelper::format(time(),
  *     ['time' => true]));
  */
-class DateHelper {
+class DateHelper
+{
 
     protected static $monthes = [
        'нулября',
@@ -46,7 +47,8 @@ class DateHelper {
      *     seconds - выводить секунды, если выводится время (по умолчанию - true)
      * @return string
      */
-    public static function format($date, $options = []) {
+    public static function format($date, $options = [])
+    {
         $time = strtotime($date);
         $result = date('d ', $time);
 
@@ -85,7 +87,8 @@ class DateHelper {
      * null
      * @return integer unix-timestamp
      */
-    public static function difference($date1, $date2 = null) {
+    public static function difference($date1, $date2 = null)
+    {
         if($date2 === null) {
             $date2 = date('Y-m-d H:i:s');
         }

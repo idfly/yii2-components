@@ -5,14 +5,16 @@ namespace idfly\components;
 /**
  * Хелпер для работы с телефонами
  */
-class PhoneHelper {
+class PhoneHelper
+{
 
     /**
      * Привести телефон к формату 71002003040
      * @param  string $phone телефон в любом формате
      * @return string
      */
-    public static function prepare($phone) {
+    public static function prepare($phone)
+    {
         $phone = preg_replace('/\s/', '', $phone);
         $phone = '7' . preg_replace('/^(\+7|8|7(?=\d{10}))/', '', $phone);
         return $phone;
@@ -23,7 +25,8 @@ class PhoneHelper {
      * @param  string $phone телефон в любом формате
      * @return boolean
      */
-    public static function validate($phone) {
+    public static function validate($phone)
+    {
         return preg_match('/^7\d{10}/', self::prepare($phone)) === 1;
     }
 
@@ -32,7 +35,8 @@ class PhoneHelper {
      * @param  string $phone телефон
      * @return string
      */
-    public static function format($phone) {
+    public static function format($phone)
+    {
         $matches = [];
         $match = preg_match('/^(\d{1})(\d{3})(\d{3})(\d{4})/', $phone,
             $matches);

@@ -41,14 +41,16 @@ namespace idfly\components;
  *     }
  * }
  */
-class GeoHelper {
+class GeoHelper
+{
 
     /**
      * Закодировать строкове представление точки в mysql-представление
      * @param  string $point массив координат через :
      * @return string координаты через пробел
      */
-    public static function encodePoint($point) {
+    public static function encodePoint($point)
+    {
         $parts = explode(':', $point);
         return (float)$parts[0] . ' ' . (float)$parts[1];
     }
@@ -58,7 +60,8 @@ class GeoHelper {
      * @param  string $region регион в формате "x:y;x:y;x:y"
      * @return string координаты через запятую
      */
-    public static function encodeRegion($region) {
+    public static function encodeRegion($region)
+    {
         $points = [];
         foreach(explode(';', $region) as $point) {
             $points[] = self::encodePoint($point);
@@ -76,7 +79,8 @@ class GeoHelper {
      * @param  string $point точка в формате 'x:y'
      * @return [type]       [description]
      */
-    public static function pointAsExpression($point) {
+    public static function pointAsExpression($point)
+    {
         if(empty($point)) {
             return new \yii\db\Expression('NULL');
         }
@@ -90,7 +94,8 @@ class GeoHelper {
      * @param  string $point точка в формате 'x:y'
      * @return [type]       [description]
      */
-    public static function regionAsExpression($region) {
+    public static function regionAsExpression($region)
+    {
         if(empty($region)) {
             return new \yii\db\Expression('NULL');
         }
@@ -109,7 +114,8 @@ class GeoHelper {
      * @param  string $point точка в формате 'POINT(x y)'
      * @return string
      */
-    public static function decodePoint($point) {
+    public static function decodePoint($point)
+    {
         if(empty($point)) {
             return null;
         }
@@ -129,7 +135,8 @@ class GeoHelper {
      * @param  string $point точка в формате 'POLYGON((x y, x y, x y))'
      * @return string
      */
-    public static function decodeRegion($region) {
+    public static function decodeRegion($region)
+    {
         if(empty($region)) {
             return null;
         }
@@ -141,7 +148,6 @@ class GeoHelper {
 
         $result = str_replace(' ', ':', $result);
         $result = str_replace(',', ';', $result);
-
 
         return $result;
     }

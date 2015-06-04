@@ -1,9 +1,10 @@
 idfly\components\UtilityAsset
 ===============
 
+Утилитные ассаты; подключает utility.css.
 
-
-
+В utility.css всё просто, можно просто прочитать файл, чтобы понять, что он
+делает.
 
 
 * Class name: UtilityAsset

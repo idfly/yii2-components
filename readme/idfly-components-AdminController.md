@@ -24,6 +24,9 @@ Javascript страницы берётся из массива protected $js.
   - actionUpdate
   - actionDelete
 
+Чтобы дефолтные view нормально отображались, нужно подключить AdminAsset в
+Asset'ы.
+
 
 * Class name: AdminController
 * Namespace: idfly\components

@@ -1,9 +1,11 @@
 idfly\components\AdminAsset
 ===============
 
+Ассеты администратора; подключает admin.css из папки assets, зависит от
+UtilityAsset.
 
-
-
+В admin.css всё просто, можно просто прочитать файл, чтобы понять, что он
+делает.
 
 
 * Class name: AdminAsset
@@ -53,7 +55,7 @@ Properties
 
 ### $depends
 
-    public mixed $depends = array('idfly\porto\PortoAsset', 'idfly\components\UtilityAsset')
+    public mixed $depends = array('idfly\components\UtilityAsset')
 
 
 

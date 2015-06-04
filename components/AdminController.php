@@ -28,6 +28,9 @@ use yii\helpers\ArrayHelper;
  *   - actionUpdate
  *   - actionDelete
  *
+ * Чтобы дефолтные view нормально отображались, нужно подключить AdminAsset в
+ * Asset'ы.
+ *
  */
 class AdminController extends \idfly\components\Controller
 {

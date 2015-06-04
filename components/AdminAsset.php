@@ -2,6 +2,13 @@
 
 namespace idfly\components;
 
+/**
+ * Ассеты администратора; подключает admin.css из папки assets, зависит от
+ * UtilityAsset.
+ *
+ * В admin.css всё просто, можно просто прочитать файл, чтобы понять, что он
+ * делает.
+ */
 class AdminAsset extends \yii\web\AssetBundle
 {
     /** @inheritdoc */
@@ -15,7 +22,6 @@ class AdminAsset extends \yii\web\AssetBundle
     ];
 
     public $depends = [
-        'idfly\porto\PortoAsset',
         'idfly\components\UtilityAsset',
     ];
 }

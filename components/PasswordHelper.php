@@ -4,9 +4,11 @@ namespace idfly\components;
 
 use \yii\helpers\ArrayHelper;
 
-class PasswordHelper {
+class PasswordHelper
+{
 
-    public function generate($options = []) {
+    public function generate($options = [])
+    {
         $alphabet =
             'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ' .
             '0123456789';

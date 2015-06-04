@@ -15,8 +15,8 @@ class AuthorizationRequired extends \yii\web\UnauthorizedHttpException {}
  * В модели должны быть поля id, password для подключения данного класса.
  *
  * Если в классе объявлены beforeSave или afterFind, то нужно вызвать
- * _setPasswordHash внутри beforeSave и _hidePassword afterFind следующим
- * образом:
+ * _setPasswordHash внутри beforeSave и _hidePassword внутри afterFind
+ * следующим образом:
  *
  *   class User extends \yii\db\ActiveRecord {
  *       use \app\components\Authorization;
