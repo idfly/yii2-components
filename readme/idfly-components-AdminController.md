@@ -133,6 +133,17 @@ javascript, который нужно выполнить для того, или
 * Visibility: **protected**
 
 
+### $modelClass
+
+    protected \idfly\components\[type] $modelClass
+
+Класс модели, с которым работет контроллер
+
+
+
+* Visibility: **protected**
+
+
 Methods
 -------
 
@@ -507,26 +518,34 @@ $_GET&lt;/p&gt;
 
 ### _redirectBack
 
-    mixed idfly\components\Controller::_redirectBack($default)
+    \idfly\components\yii\web\Response idfly\components\Controller::_redirectBack(string $default)
 
+Вернуть пользователя назад, если параметр _redirect установлен в
+get-параметрах;
 
+Если параметра _redirect нет, тогда будет использован роут $default из
+аргументов
 
-
+Если $default равен null, тогда будет исполльзован путь
+/[module]/[controller]/[index]
 
 * Visibility: **protected**
 * This method is defined by [idfly\components\Controller](idfly-components-Controller.md)
 
 
 #### Arguments
-* $default **mixed**
+* $default **string** - &lt;p&gt;путь по умолчанию для перенаправления пользователя&lt;/p&gt;
 
 
 
 ### _getElement
 
-    mixed idfly\components\Controller::_getElement($id, $class)
+    \yii\base\Model idfly\components\Controller::_getElement(integer $id, string $class)
 
-
+Найти элемент с заданным id и заданным классом; если элемент не найден,
+то будет выброшено исключение; если класс не задан, то будет использован
+класс по умолчанию ($modelClass). Если оба класса не заданы, то будет
+выброшено исключение.
 
 
 
@@ -535,7 +554,7 @@ $_GET&lt;/p&gt;
 
 
 #### Arguments
-* $id **mixed**
-* $class **mixed**
+* $id **integer** - &lt;p&gt;идентификатор&lt;/p&gt;
+* $class **string** - &lt;p&gt;класс&lt;/p&gt;
 
 

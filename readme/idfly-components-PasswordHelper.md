@@ -1,7 +1,7 @@
 idfly\components\PasswordHelper
 ===============
 
-
+Хелпер для работы с паролями.
 
 
 
@@ -21,9 +21,9 @@ Methods
 
 ### generate
 
-    mixed idfly\components\PasswordHelper::generate($options)
+    \idfly\components\[type] idfly\components\PasswordHelper::generate(array $options)
 
-
+Сгенерировать пароль. Поддержка опций запланирована.
 
 
 
@@ -31,6 +31,6 @@ Methods
 
 
 #### Arguments
-* $options **mixed**
+* $options **array** - &lt;p&gt;Опции&lt;/p&gt;
 
 

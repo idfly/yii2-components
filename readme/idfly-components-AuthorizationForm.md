@@ -28,22 +28,11 @@ Properties
 ----------
 
 
-### $password
-
-    public mixed $password
-
-
-
-
-
-* Visibility: **public**
-
-
 ### $loginField
 
-    public mixed $loginField = 'login'
+    public string $loginField = 'login'
 
-
+Поле модели, которое будет использоваться для логина.
 
 
 
@@ -52,9 +41,11 @@ Properties
 
 ### $modelClass
 
-    public mixed $modelClass = 'app\models\User'
+    public string $modelClass = 'app\models\User'
 
-
+Класс модели, который будет использоваться для логина. Модель должна
+подключать трейт Authorization или имплементировать интерфейс этого
+трейта.
 
 
 
@@ -93,9 +84,9 @@ Methods
 
 ### login
 
-    mixed idfly\components\AuthorizationForm::login()
+    boolean idfly\components\AuthorizationForm::login()
 
-
+Выполнить авторизацию.
 
 
 
