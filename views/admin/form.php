@@ -1,4 +1,4 @@
-<?php $inputs = $this->context->fieldsInputs($form, $_element); ?>
+<?php $inputs = $this->context->getFieldsInputs($form, $_element); ?>
 
 <?php foreach(array_keys($_element->getAttributes()) as $field): ?>
     <?php if($field === 'id'): ?>

@@ -4,12 +4,57 @@ namespace idfly\components;
 
 class AuthorizationRequired extends \yii\web\UnauthorizedHttpException {}
 
-trait Authorization {
+/**
+ * Хелпер, позволяющий реализовывать авторизацию пользователей
+ *
+ * Пример подключения:
+ *   class User extends \yii\db\ActiveRecord {
+ *       use \app\components\Authorization;
+ *   }
+ *
+ * В модели должны быть поля id, password для подключения данного класса.
+ *
+ * Если в классе объявлены beforeSave или afterFind, то нужно вызвать
+ * _setPasswordHash внутри beforeSave и _hidePassword afterFind следующим
+ * образом:
+ *
+ *   class User extends \yii\db\ActiveRecord {
+ *       use \app\components\Authorization;
+ *
+ *       public function beforeSave($insert) {
+ *           if(!parent::beforeSave($insert)) {
+ *               return false;
+ *           }
+ *
+ *           return $this->_setPasswordHash($insert);
+ *       }
+ *
+ *       public function afterFind() {
+ *            $this->_hidePassword();
+ *            return parent::afterFind();
+ *       }
+ *   }
+ *
+ * Использование класса:
+ *
+ * User::getCurrent() - вернёт модель авторизированного пользоватля или null
+ * User::getCurrentId() - вернёт id авторизированного пользоватля или null
+ * User::requireCurrent() - вернёт модель пользоватля или выбросит
+ * \yii\web\UnauthorizedHttpException
+ *
+ * User::setCurrent($user) - установит текущего пользователя
+ *
+ * $user->checkPassword(\yii::$app->request->post('password')) - проверить
+ * пароль пользователя
+ */
+trait Authorization
+{
 
     public $_password;
-    static private $_current;
+    private static $_current;
 
-    static public function setCurrent($user) {
+    public static function setCurrent($user)
+    {
         if(empty($user)) {
             \yii::$app->session[get_class() . '.id'] = null;
             \yii::$app->session[get_class() . '.password'] = null;
@@ -19,11 +64,8 @@ trait Authorization {
         }
     }
 
-    static public function requireCurrentId() {
-        return self::requireCurrent()->id;
-    }
-
-    static public function requireCurrent() {
+    public static function requireCurrent()
+    {
         $current = self::getCurrent();
         if(empty($current)) {
             throw new AuthorizationRequired('Для выполнения этого действия ' .
@@ -33,7 +75,8 @@ trait Authorization {
         return $current;
     }
 
-    static public function getCurrentId() {
+    public static function getCurrentId()
+    {
         $user = self::getCurrent();
         if(empty($user)) {
             return null;
@@ -42,7 +85,8 @@ trait Authorization {
         return $user->id;
     }
 
-    static public function getCurrent() {
+    public static function getCurrent()
+    {
         if(empty(self::$current)) {
             $userId = \yii::$app->session[get_class() . '.id'];
             if(empty($userId)) {
@@ -61,20 +105,23 @@ trait Authorization {
         return self::$_current;
     }
 
-    public function checkPassword($password) {
+    public function checkPassword($password)
+    {
         return \yii::$app->security->validatePassword($password,
             $this->_password);
     }
 
-    public function beforeSave($insert) {
-        return $this->_beforeSave($insert);
-    }
-
-    protected function _beforeSave($insert) {
+    public function beforeSave($insert)
+    {
         if(!parent::beforeSave($insert)) {
             return false;
         }
 
+        return $this->_setPasswordHash($insert);
+    }
+
+    protected function _setPasswordHash($insert)
+    {
         if(empty($this->password)) {
             $this->password = $this->_password;
         } elseif((!empty($this->password))) {
@@ -85,15 +132,16 @@ trait Authorization {
         return true;
     }
 
-    public function afterFind() {
-        return $this->_afterFind();
+    public function afterFind()
+    {
+        $this->_hidePassword();
+        return parent::afterFind();
     }
 
-    protected function _afterFind() {
+    protected function _hidePassword()
+    {
         $this->_password = $this->password;
         $this->password = null;
-
-        return parent::afterFind();
     }
 
 }

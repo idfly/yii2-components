@@ -1,10 +1,26 @@
 <?php
 
 namespace idfly\components;
-
+/**
+ * Форма авторизации пользователя; использование:
+ *
+ * $authorizationForm = new \idfly\components\AuthorizationForm();
+ * $authorizationForm->load(\yii::$app->request->post());
+ * $success = $authorizationForm->login();
+ *
+ * Авторизация проходит по полю login и модели \app\models\User, для
+ * кастомные параметры можно указать в конструкторе:
+ *
+ * $authorizationForm = new \idfly\components\AuthorizationForm([
+ *    'loginField' => 'email',
+ *    'modelClass' => 'app\models\Admin',
+ * ]);
+ */
 class AuthorizationForm extends \yii\base\Model {
 
     public $password;
+    public $loginField = 'login';
+    public $modelClass = 'app\models\User';
 
     public function rules() {
         return [

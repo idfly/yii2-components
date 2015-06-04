@@ -11,7 +11,7 @@ use yii\helpers\Html;
             <?php require $_filter; ?>
             <div class="<?= $_key ?>-list elements-list">
                 <?php require $_list ?>
-                <?php require $_listFooter ?>
+                <?php require $_footer ?>
             </div>
         <?php else: ?>
             <?php require $_filter; ?>
@@ -38,7 +38,7 @@ use yii\helpers\Html;
                 <div class="panel-body <?= $_key ?>-list elements-list" element-id-key="<?=
                     Html::encode($_keyOne) ?>-id">
                     <?php require $_list ?>
-                    <?php require $_listFooter ?>
+                    <?php require $_footer ?>
                 </div>
             </section>
         <?php endif ?>

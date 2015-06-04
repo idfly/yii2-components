@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+system("phpdoc -d . -t docs/ --template \"xml\"")
+system("phpdocmd docs/structure.xml readme/")
+system("rm -rf docs/")
