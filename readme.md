@@ -28,3 +28,7 @@
 
   - [Админ](readme/idfly-components-AdminAsset.md)
   - [Утилиты](readme/idfly-components-UtilityAsset.md)
+
+Коммиты приветствуются. Чтобы обновить документацию, нужно установить консольные
+утилиты http://www.phpdoc.org/ и https://github.com/evert/phpdoc-md и вызвать
+команду ./build.
