@@ -8,13 +8,18 @@ use yii\helpers\Html;
     <div class="<?php if(!empty($_search)) : ?>col-sm-9<? else: ?>col-sm-12<? endif ?>">
 
         <?php if(\Yii::$app->request->isAjax): ?>
-            <?php require $_filter; ?>
+            <?php if(!empty($_filter)) : ?>
+                <?php require $_filter; ?>
+            <?php endif ?>
+
             <div class="<?= $_key ?>-list elements-list">
                 <?php require $_list ?>
                 <?php require $_footer ?>
             </div>
         <?php else: ?>
-            <?php require $_filter; ?>
+            <?php if(!empty($_filter)) : ?>
+                <?php require $_filter; ?>
+            <?php endif ?>
 
             <section class="panel">
                 <div class="panel-heading with-actions clearfix">
