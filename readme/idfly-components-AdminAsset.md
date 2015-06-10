@@ -1,11 +1,10 @@
 idfly\components\AdminAsset
 ===============
 
-Ассеты администратора; подключает admin.css из папки assets, зависит от
-UtilityAsset.
+Ассеты модального окна; подключает utility-modal.css и utility-modal.js из
+папки assets.
 
-В admin.css всё просто, можно просто прочитать файл, чтобы понять, что он
-делает.
+
 
 
 * Class name: AdminAsset
@@ -33,7 +32,7 @@ Properties
 
 ### $css
 
-    public mixed $css = array('admin.css')
+    public mixed $css = array('utility-modal.css')
 
 
 
@@ -44,7 +43,7 @@ Properties
 
 ### $js
 
-    public mixed $js = array()
+    public mixed $js = array('utility-modal.js')
 
 
 
@@ -55,7 +54,7 @@ Properties
 
 ### $depends
 
-    public mixed $depends = array('idfly\components\UtilityAsset')
+    public mixed $depends = array()
 
 
 

@@ -26,8 +26,14 @@
   - [Пароль](readme/idfly-components-PasswordHelper.md)
   - [Телефон](readme/idfly-components-PhoneHelper.md)
 
+Javascript
+----------
+
+  - [Модальное окно](readme-extra/utility-modal.md)
+
 Ассеты
 ------
 
   - [Админ](readme/idfly-components-AdminAsset.md)
+  - [Модальное окно](readme/idfly-components-UtilityModalAsset.md)
   - [Утилиты](readme/idfly-components-UtilityAsset.md)
