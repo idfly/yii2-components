@@ -14,7 +14,7 @@
 
 Авторизация
 -----------
-  - [Трейт](readme/idfly-components-Authorization.md)
+  - [Трейт](components/Authorization.php)
   - [Форма](readme/idfly-components-AuthorizationForm.md)
 
 Хелперы
