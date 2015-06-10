@@ -119,10 +119,6 @@ body {
     cursor: pointer;
 }
 
-.modal-full {
-    width: 95%;
-}
-
 .panel-heading > .filters {
     margin-left: 25px;
 }
