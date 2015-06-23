@@ -1,0 +1,16 @@
+.notification {
+    position: fixed;
+    margin: 0 auto;
+    width: 200px;
+    padding: 30px;
+    box-sizing: border-box;
+    left: 50%;
+    background: #000;
+    opacity: 0.75;
+    color: #fff;
+    bottom: 100px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 10px;
+    z-index: 1;
+}

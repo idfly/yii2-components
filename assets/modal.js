@@ -1,7 +1,9 @@
-UtilityModal = {
+var IdFly = IdFly || {};
+IdFly.Components = IdFly.Components || {};
+IdFly.Components.Modal = {
   create: function(options) {
       options = options || {};
-      var className = (options.class || 'modal-full');
+      var className = (options.class || 'modal-scrollable modal-full');
       var modal =
           '<div class="modal">' +
             '<div class="modal-dialog ' + className + '">' +

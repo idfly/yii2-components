@@ -73,7 +73,8 @@ class Controller extends \yii\web\Controller
             throw new \yii\web\HttpException(404);
         }
 
-        $element = $class::find()->
+        $element =
+            $class::find()->
             where(['id' => $id])->
             one();
 

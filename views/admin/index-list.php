@@ -17,7 +17,7 @@ use yii\helpers\Html;
         <table class="table table-condensed mb-none">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>#</th>
                     <?php foreach($first->fields() as $field): ?>
                         <?php if($field === 'id'): ?>
                             <?php continue; ?>

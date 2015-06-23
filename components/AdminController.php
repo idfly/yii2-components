@@ -42,14 +42,6 @@ class AdminController extends \idfly\components\Controller
     public $layout = 'admin.php';
 
     /**
-     * Список ключей, по которым доступен поиск по запросу через "или"; пример:
-     * ['first_name', 'last_name'] (будет преобразовано в запрос:
-     * first_name LIKE значение% или last_name LIKE значение% при поиске моделей
-     * @var array
-     */
-    protected $queryKeys = [];
-
-    /**
      * Список ключей, по которым доступен поиск по запросу через "и"; пример
      * массива: ['date?>', 'price?<=', 'name?'] (преобразует в запрос: date
      * больше значения и price меньше либо равна значению и name равно значению)
@@ -59,7 +51,7 @@ class AdminController extends \idfly\components\Controller
      * ('name?')
      * @var array
      */
-    protected $searchKeys = [];
+    protected $allowedQueryKeys = null;
 
     /**
      * Заголовки разделов; возможные значения ключей массива:
@@ -140,6 +132,13 @@ class AdminController extends \idfly\components\Controller
         return $this->_render($view, $data);
     }
 
+    public function actionListJson()
+    {
+        \Yii::$app->response->format = 'json';
+        $list = $this->_getQuery()->asArray()->all();
+        return json_encode($list, JSON_UNESCAPED_UNICODE);
+    }
+
     /**
      * Произвести рендер страницы; если вызывается аякс запрос - рендер будет
      * произведён без layout'а
@@ -186,7 +185,7 @@ class AdminController extends \idfly\components\Controller
         return $this->_render($view, $data);
     }
 
-    public function _getViewData($element)
+    protected function _getViewData($element)
     {
         $data = [
             $this->_getKey(false) => $element,
@@ -198,6 +197,13 @@ class AdminController extends \idfly\components\Controller
         ];
 
         return $data;
+    }
+
+    public function actionViewJson($id)
+    {
+        \Yii::$app->response->format = 'json';
+        $element = $this->_getElement($id)->toArray();
+        return json_encode($element, JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -233,6 +239,41 @@ class AdminController extends \idfly\components\Controller
 
         $viewData = $this->_getCreateData($element);
         return $this->render($this->_resolveView('create'), $viewData);
+    }
+
+    /**
+     * Страница создания элемента.
+     *
+     * - создаёт модель
+     *
+     * - используется title "create"
+     *
+     * - используется javascript:
+     *   - create
+     *   - form
+     *
+     * - данные для view получаются через метод _getCreateData
+     *
+     * - используются следующие view:
+     *   - create.php - оболочка
+     *   - create-body.php - оболочка формы
+     *   - form.php - форма (шэрится между create и update)
+     *
+     * @return string html-код страницы
+     */
+    public function actionCreateJson()
+    {
+        $modelClass = $this->modelClass;
+        $element = new $modelClass;
+        $result = (
+            $element->load(\yii::$app->request->post()) &&
+            $element->save()
+        );
+
+        return json_encode(
+            [$result, $element->getErrors()],
+            JSON_UNESCAPED_UNICODE
+        );
     }
 
     /**
@@ -288,6 +329,41 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
+     * Обновить элемент.
+     *
+     * - обновляет модель
+     *
+     * - используется title "update"
+     *
+     * - используется javascript:
+     *   - update
+     *   - form
+     *
+     * - данные для view получаются через метод _getUpdateData
+     *
+     * - используются следующие view:
+     *   - update.php - оболочка
+     *   - update-body.php - оболочка формы
+     *   - form.php - форма (шэрится между create и update)
+     *
+     * @param  int $id идентификатор элемента
+     * @return string html-код страницы
+     */
+    public function actionUpdateJson($id)
+    {
+        $element = $this->_getElement($id);
+        $result = (
+            $element->load(\yii::$app->request->post()) &&
+            $element->save()
+        );
+
+        return json_encode(
+            [$result, $element->getErrors()],
+            JSON_UNESCAPED_UNICODE
+        );
+    }
+
+    /**
      * Получить данные для actionUpdate.
      *
      * @param  mixed $element элемент
@@ -324,7 +400,7 @@ class AdminController extends \idfly\components\Controller
      */
     protected function _getList()
     {
-        $query = $this->getQuery();
+        $query = $this->_getQuery();
 
         $limit = \yii::$app->request->get('limit', 100);
         $list = new \yii\data\ActiveDataProvider([
@@ -336,6 +412,17 @@ class AdminController extends \idfly\components\Controller
         ]);
 
         return $list;
+    }
+
+    protected function _getQuery() {
+        $result = \idfly\components\QueryBuilder::build(
+            $this->modelClass,
+            \yii::$app->request->get('query', []), [
+                'allowedKeys' => $this->allowedQueryKeys,
+            ]
+        );
+
+        return $result;
     }
 
     /**
@@ -365,117 +452,6 @@ class AdminController extends \idfly\components\Controller
         }
 
         return $this->_getKey() . ': ' . $type;
-    }
-
-    /**
-     * Получить запрос для выбора элементов
-     * @param  \yii\db\ActiveQuery $query запрос для модификации; если null -
-     * будет создан новый запрос
-     * @param  array $get данные из get запроса; если null - будет использован
-     * $_GET
-     * @return \yii\db\ActiveQuery запрос для выбора элементов
-     */
-    public function getQuery($query = null, $get = null)
-    {
-        $modelClass = $this->modelClass;
-
-        if(empty($query)) {
-            $query = $modelClass::find();
-        }
-
-        if($get === null) {
-            $get = \Yii::$app->request->get();
-        }
-
-        return $this->_getSearchQuery(
-            $modelClass::tableName(),
-            $query,
-            $get,
-            !empty($this->searchKeys) ? $this->searchKeys : [],
-            $this->queryKeys
-        );
-    }
-
-    /**
-     * Создать запрос для фильтрации элементов
-     * @param  string $table      таблица
-     * @param  \yii\db\ActiveQuery $query запрос, в который устновить условия
-     * поиска
-     * @param  array $get данные, на основе которых устновить запрос
-     * @param  array $searchKeys ключи массива данных, которые можно использовать
-     * для составления запроса
-     * @param  array $queryKeys поля таблицы, в которых необходимо производвить
-     * или-поиск по запросу $get['query']
-     * @return \yii\db\ActiveQuery
-     */
-    protected function _getSearchQuery($table, $query, $get, $searchKeys = [],
-        $queryKeys = []) {
-
-        foreach($get as $key => $value) {
-            $ignore = (
-                !mb_strstr($key, '?') ||
-                empty($value) ||
-                !in_array($key, $searchKeys)
-            );
-
-            if($ignore) {
-                continue;
-            }
-
-            list($field, $operator) = explode('?', $key);
-            if(empty($operator)) {
-                $operator = '=';
-            }
-
-            $fieldName = "`" . $table . "`.`$field`";
-            if($value === 'NULL') {
-                $query = $query->andWhere($fieldName . ' IS NULL');
-            } elseif($value === 'NOTNULL') {
-                $query = $query->andWhere($fieldName . ' IS NOT NULL');
-            } else {
-                if(is_array($value)) {
-                    $escapedValue = [];
-                    foreach($value as $part) {
-                        $escapedValue[] = \Yii::$app->db->quoteValue($part);
-                    }
-
-                    $escapedValue = '(' . implode(', ', $escapedValue) . ')';
-                } else {
-                    $escapedValue = \Yii::$app->db->quoteValue($value);
-                }
-
-                $query = $query->andWhere($fieldName . ' ' . $operator . ' ' .
-                    $escapedValue);
-            }
-        }
-
-        if(!empty($get['query']) && !empty($queryKeys)) {
-            $query->andWhere($this->_getLikeQuery($get['query'], $queryKeys));
-        }
-
-        if(empty($query->orderBy)) {
-            $query->orderBy('`' . $table . '`.`id` DESC');
-        };
-
-        return $query;
-    }
-
-    /**
-     * Получить запрос для или-фильтрации по списку полей
-     * @param  \yii\db\ActiveQuery $query [description]
-     * @param  array $queryKeys ключи, по которым можно фильтровать
-     * @return \yii\db\ActiveQuery
-     */
-    protected function _getLikeQuery($query, $queryKeys)
-    {
-        $likeQuery = ['or'];
-        $modelClass = $this->modelClass;
-        foreach($queryKeys as $field) {
-            $likeQuery[] = "`" . $modelClass::tableName() . "`.`$field` LIKE " .
-                \Yii::$app->db->quoteValue($query . '%');
-        }
-
-        return $likeQuery;
     }
 
     /**
@@ -515,7 +491,10 @@ class AdminController extends \idfly\components\Controller
         if($element->save()) {
             $this->_lastSavedElement = $element;
             $this->_redirectBack();
+            return true;
         }
+
+        return false;
     }
 
     /**
