@@ -36,7 +36,6 @@ IdFly.Components.ContextualSelect = {
     },
 
     update: function(element, data) {
-        console.log(element.val());
         element = $(element);
         element.get(0)._contextualSelectOldValue = element.val();
         element.attr('disabled', 'disabled');
@@ -53,25 +52,30 @@ IdFly.Components.ContextualSelect = {
         element.html('<option value="">Загрузка...</option>');
 
         var prcessAjaxResult = function(result) {
+            element.html('');
+
             if(result.startsWith('[')) {
                 result = JSON.parse(result);
-                element.html('<option value=""></option>');
-                for(var recordIndex in result) {
-                    var record = result[recordIndex];
-                    var option = $('<option></option>').
-                        attr('value', record[options.fieldValue || 'id']).
-                        text(record[options.fieldLabel || 'name']);
+                if(result.length > 0) {
+                    element.html('<option value=""></option>');
+                    for(var recordIndex in result) {
+                        var record = result[recordIndex];
+                        var option = $('<option></option>').
+                            attr('value', record[options.fieldValue || 'id']).
+                            text(record[options.fieldLabel || 'name']);
 
-                    if(options.optionCallback) {
-                        option = options.optionCallback(option, record);
+                        if(options.optionCallback) {
+                            option = options.optionCallback(option, record);
+                        }
+
+                        element.append(option);
                     }
-
-                    element.append(option);
                 }
             } else {
                 element.html(result);
             }
 
+            console.log(element.find('option'));
             if(element.find('option').length === 0) {
                 element.html(
                     $('<option value=""></option>').
