@@ -90,4 +90,28 @@ class Controller extends \yii\web\Controller
         return $element;
     }
 
+    /**
+     * Заполнить мета-теги страницы
+     *
+     * @param \yii\base\View $view объект представления
+     * @param array $metaArray массив с данными
+     */
+    public static function registerMetaTags($view, $metaArray)
+    {
+        $view->registerMetaTag([
+            'name' => 'title',
+            'content' => $metaArray['title'],
+        ]);
+
+        $view->registerMetaTag([
+            'name' => 'description',
+            'content' => $metaArray['description'],
+        ]);
+
+        $view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => $metaArray['keywords'],
+        ]);
+    }
+
 }

@@ -1,6 +1,7 @@
 <?php $form = idfly\porto\ActiveForm::begin([
     'options' => [
         'class' => $_keyOne . '-form create-form',
+        'enctype' => 'multipart/form-data',
     ],
 ]); ?>
 

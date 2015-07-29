@@ -117,6 +117,10 @@ trait Authorization
 
             $user = self::find()->where(['id' => $userId])->one();
 
+            if(empty($user)) {
+                return null;
+            }
+
             if($user->_password != \yii::$app->session[get_class() . '.password']) {
                 return null;
             }
