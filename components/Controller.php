@@ -98,20 +98,12 @@ class Controller extends \yii\web\Controller
      */
     public static function registerMetaTags($view, $metaArray)
     {
-        $view->registerMetaTag([
-            'name' => 'title',
-            'content' => $metaArray['title'],
-        ]);
-
-        $view->registerMetaTag([
-            'name' => 'description',
-            'content' => $metaArray['description'],
-        ]);
-
-        $view->registerMetaTag([
-            'name' => 'keywords',
-            'content' => $metaArray['keywords'],
-        ]);
+        foreach($metaArray as $name => $content) {
+            $view->registerMetaTag([
+                'name' => $name,
+                'content' => $content,
+            ]);
+        }
     }
 
 }
