@@ -52,7 +52,8 @@ class Controller extends \yii\web\Controller
      * класс по умолчанию ($modelClass). Если оба класса не заданы, то будет
      * выброшено исключение.
      *
-     * @param  integer $id идентификатор
+     * @param  integer|array $id идентификатор или условие where по которому
+     *         выполнять поиск в виде ['key' => 'value']
      * @param  string $class класс
      * @throws \Exception
      * @throws \yii\web\HttpException
@@ -73,9 +74,13 @@ class Controller extends \yii\web\Controller
             throw new \yii\web\HttpException(404);
         }
 
+        if(!is_array($id)) {
+            $id = ['id' => $id];
+        }
+
         $element =
             $class::find()->
-            where(['id' => $id])->
+            where($id)->
             one();
 
         if(empty($element)) {
