@@ -16,7 +16,7 @@ class PasswordHelper
      * @param  array $options Опции
      * @return [type]          [description]
      */
-    public function generate($options = [])
+    public static function generate($options = [])
     {
         $alphabet =
             'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ' .
