@@ -32,6 +32,8 @@ IdFly.Components.Modal = {
               append(options.contents || '<p>loading...</p>').
               end();
 
+      $('.modal').css('overflow-y', 'auto');
+
       element.on('hidden.bs.modal', function() {
           element.remove();
       });
