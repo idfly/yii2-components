@@ -99,6 +99,10 @@ class Controller extends \yii\web\Controller
     public static function registerMetaTags($view, $metaArray)
     {
         foreach($metaArray as $name => $content) {
+            if(empty($content)) {
+                continue;
+            }
+
             $view->registerMetaTag([
                 'name' => $name,
                 'content' => $content,
