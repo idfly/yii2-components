@@ -9,7 +9,7 @@ class AuthorizationRequired extends \yii\web\UnauthorizedHttpException {}
  *
  * Пример подключения:
  *   class User extends \yii\db\ActiveRecord {
- *       use \app\components\Authorization;
+ *       use \idfly\components\Authorization;
  *   }
  *
  * В модели должны быть поля id, password для подключения данного класса.
