@@ -1,7 +1,7 @@
 idfly\components\PhoneHelper
 ===============
 
-Хелпер для работы с телефонами
+Helper for work with phones
 
 
 
@@ -23,7 +23,8 @@ Methods
 
     string idfly\components\PhoneHelper::prepare(string $phone)
 
-Привести телефон к формату 71002003040
+Format the phone as follows
+71002003040
 
 
 
@@ -32,7 +33,9 @@ Methods
 
 
 #### Arguments
-* $phone **string** - &lt;p&gt;телефон в любом формате&lt;/p&gt;
+* $phone **string** - &lt;ul&gt;
+&lt;li&gt;the phone at any format&lt;/li&gt;
+&lt;/ul&gt;
 
 
 
@@ -40,7 +43,7 @@ Methods
 
     boolean idfly\components\PhoneHelper::validate(string $phone)
 
-Проверить формат телефона
+Check the format of the phone
 
 
 
@@ -49,7 +52,9 @@ Methods
 
 
 #### Arguments
-* $phone **string** - &lt;p&gt;телефон в любом формате&lt;/p&gt;
+* $phone **string** - &lt;ul&gt;
+&lt;li&gt;the phone at any format&lt;/li&gt;
+&lt;/ul&gt;
 
 
 
@@ -57,7 +62,7 @@ Methods
 
     string idfly\components\PhoneHelper::format(string $phone)
 
-Отформатировать номер телефона для удобства чтения
+Format the phone number to make it more readable
 
 
 
@@ -66,6 +71,8 @@ Methods
 
 
 #### Arguments
-* $phone **string** - &lt;p&gt;телефон&lt;/p&gt;
+* $phone **string** - &lt;ul&gt;
+&lt;li&gt;phone&lt;/li&gt;
+&lt;/ul&gt;
 
 

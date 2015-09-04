@@ -5,18 +5,16 @@ namespace idfly\components;
 class AuthorizationRequired extends \yii\web\UnauthorizedHttpException {}
 
 /**
- * Хелпер, позволяющий реализовывать авторизацию пользователей
+ * Helper, allowing users to implement user’s authorization; Usage:
  *
- * Пример подключения:
  *   class User extends \yii\db\ActiveRecord {
  *       use \idfly\components\Authorization;
  *   }
  *
- * В модели должны быть поля id, password для подключения данного класса.
- *
- * Если в классе объявлены beforeSave или afterFind, то нужно вызвать
- * _setPasswordHash внутри beforeSave и _hidePassword внутри afterFind
- * следующим образом:
+ * There should be fields `id` and `password` in the model to use this class.
+ * If in the class `beforeSave` or `afterFind` is declared, you need to call
+ * `_setPasswordHash` inside `beforeSave` and `_hidePassword` inside
+ * `afterFind` as follows:
  *
  *   class User extends \yii\db\ActiveRecord {
  *       use \app\components\Authorization;
@@ -35,17 +33,17 @@ class AuthorizationRequired extends \yii\web\UnauthorizedHttpException {}
  *       }
  *   }
  *
- * Использование класса:
+ * Class usage:
  *
- * User::getCurrent() - вернёт модель авторизированного пользоватля или null
- * User::getCurrentId() - вернёт id авторизированного пользоватля или null
- * User::requireCurrent() - вернёт модель пользоватля или выбросит
+ * User::getCurrent() - returns the model of authorized user or null
+ * User::getCurrentId() - returns the `id` of authorized user or null
+ * User::requireCurrent() - returns the user model or throw
  * \yii\web\UnauthorizedHttpException
  *
- * User::setCurrent($user) - установит текущего пользователя
+ * User::setCurrent($user) - set the current user
  *
- * $user->checkPassword(\yii::$app->request->post('password')) - проверить
- * пароль пользователя
+ * $user->checkPassword(\yii::$app->request->post('password')) -
+ * check user’s password
  */
 trait Authorization
 {
@@ -54,9 +52,10 @@ trait Authorization
     private static $_current;
 
     /**
-     * Установить текущего пользователя в сессиюю. Установит значение CLASS.id,
-     * CLASS.password в сессиию. Если передан null, тогда отменит авторизацию.
-     * У модели должны быть свойства id и _password
+     * Set current user into session. This will set the value `CLASS.id` and
+     * `CLASS.password` into session. If `null` passed, then the authorization
+     * would canceled.
+     * The model should have the `id` and `_password` attributes.
      * @param \yii\base\Model $user
      */
     public static function setCurrent($user)
@@ -88,8 +87,8 @@ trait Authorization
     }
 
     /**
-     * Запросить идентификатор текущего авторизированного пользователя. Если
-     * пользователь неавторизирован, вернёт null.
+     * Call for the current authorized user `id`. If the user is unauthorized,
+     * returns null
      * @return integer
      */
     public static function getCurrentId()
@@ -103,8 +102,8 @@ trait Authorization
     }
 
     /**
-     * Запросить текущего авторизированного пользователя (инстанцию модели).
-     * Если пользователь неавторизирован, вернёт null.
+     * Call for the current authorized user (model’s instance).
+     * If the user is unauthorized, returns null.
      * @return \yii\base\Model
      */
     public static function getCurrent()
@@ -132,8 +131,8 @@ trait Authorization
     }
 
     /**
-     * Проверить пароль пользователя
-     * @param  string $password пароль в открытом виде
+     * Check the user's password
+     * @param  string $password password in plaintext
      * @return boolean
      */
     public function checkPassword($password)
@@ -143,7 +142,7 @@ trait Authorization
     }
 
     /**
-     * beforeSave-хелпер; вызывает _setPasswordHash
+     * `beforeSave`-helper; calls `_setPasswordHash`
      * @inheritdoc
      */
     public function beforeSave($insert)
@@ -157,8 +156,8 @@ trait Authorization
     }
 
     /**
-     * Конвертировать пароль в открытом виде в хэш. Нужно обязательно вызвать
-     * этот метод в beforeSave, если beforeSave переопределён в подклассе.
+     * Convert the plaintext password into a hash. It is necessary to call this
+     * method in `beforeSave`, if beforeSave redefined in a subclass.
      */
     protected function _setPasswordHash()
     {
@@ -171,7 +170,7 @@ trait Authorization
     }
 
     /**
-     * afterFind-хелпер; вызывает _hidePassword
+     * `afterFind`-helper; calls `_hidePassword`
      * @return [type] [description]
      */
     public function afterFind()
@@ -181,8 +180,8 @@ trait Authorization
     }
 
     /**
-     * Скрыть пароль из паблика. Нужно обязательно вызвать этот метод в
-     * afterFind, если afterFind переопределён в подклассе.
+     * Hide the password from public. It is necessary to call this method in
+     * `afterFind`, if `afterFind` redefined in a subclass.
      */
     protected function _hidePassword()
     {

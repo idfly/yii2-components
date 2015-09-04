@@ -3,15 +3,15 @@
 namespace idfly\components;
 
 /**
- * Хелрер для работы с числами
+ * Helper for work with numbers
  */
 class NumberHelper
 {
 
     /**
-     * Отфармотировать число таким образом, чтобы его удобно было читать.
-     * @param  integer $number число
-     * @return string строковое представление
+     * Format the numbers to make it more readable.
+     * @param  integer $number - number
+     * @return string - string representation
      */
     public static function format($number)
     {

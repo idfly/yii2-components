@@ -1,7 +1,7 @@
 idfly\components\NumberHelper
 ===============
 
-Хелрер для работы с числами
+Helper for work with numbers
 
 
 
@@ -23,7 +23,7 @@ Methods
 
     string idfly\components\NumberHelper::format(integer $number)
 
-Отфармотировать число таким образом, чтобы его удобно было читать.
+Format the numbers to make it more readable.
 
 
 
@@ -32,6 +32,8 @@ Methods
 
 
 #### Arguments
-* $number **integer** - &lt;p&gt;число&lt;/p&gt;
+* $number **integer** - &lt;ul&gt;
+&lt;li&gt;number&lt;/li&gt;
+&lt;/ul&gt;
 
 

@@ -1,11 +1,10 @@
 idfly\components\GeoHelper
 ===============
 
-Класс для работы с mysql spatial-данными.
+Class for work with mysql spatial-data.
 
-Пример использования:
-
-class Client extends \yii\db\ActiveRecord {
+Example:
+* class Client extends \yii\db\ActiveRecord {
 
     public static function find() {
         return parent::find()->
@@ -57,7 +56,7 @@ Methods
 
     string idfly\components\GeoHelper::encodePoint(string $point)
 
-Закодировать строкове представление точки в mysql-представление
+Encode the string representation of the point in the mysql-representation
 
 
 
@@ -66,7 +65,9 @@ Methods
 
 
 #### Arguments
-* $point **string** - &lt;p&gt;массив координат через :&lt;/p&gt;
+* $point **string** - &lt;ul&gt;
+&lt;li&gt;array of coordinates with delimiter &lt;code&gt;:&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 
 
@@ -74,7 +75,7 @@ Methods
 
     string idfly\components\GeoHelper::encodeRegion(string $region)
 
-Закодировать строкове представление региона в mysql-представление
+Encode the string representation of the region in the mysql-representation
 
 
 
@@ -83,7 +84,9 @@ Methods
 
 
 #### Arguments
-* $region **string** - &lt;p&gt;регион в формате &quot;x:y;x:y;x:y&quot;&lt;/p&gt;
+* $region **string** - &lt;ul&gt;
+&lt;li&gt;region in format &quot;x: y; x: y; x: y&quot;&lt;/li&gt;
+&lt;/ul&gt;
 
 
 
@@ -91,7 +94,7 @@ Methods
 
     \idfly\components\[type] idfly\components\GeoHelper::pointAsExpression(string $point)
 
-Закодировать точку в выражение для вставки в mysql
+Encode the point to the expression which inserts into mysql
 
 
 
@@ -100,7 +103,9 @@ Methods
 
 
 #### Arguments
-* $point **string** - &lt;p&gt;точка в формате &#039;x:y&#039;&lt;/p&gt;
+* $point **string** - &lt;ul&gt;
+&lt;li&gt;the point in the format &#039;x: y&#039;&lt;/li&gt;
+&lt;/ul&gt;
 
 
 
@@ -108,7 +113,7 @@ Methods
 
     \idfly\components\[type] idfly\components\GeoHelper::regionAsExpression($region)
 
-Закодировать регион в выражение для вставки в mysql
+Encode the region to the expression which inserts into mysql
 
 
 
@@ -125,7 +130,7 @@ Methods
 
     string idfly\components\GeoHelper::decodePoint(string $point)
 
-Раскодировать точку из mysql-представления в строкове представление
+Decode the point out of mysql-representation into a string
 
 
 
@@ -134,7 +139,9 @@ Methods
 
 
 #### Arguments
-* $point **string** - &lt;p&gt;точка в формате &#039;POINT(x y)&#039;&lt;/p&gt;
+* $point **string** - &lt;ul&gt;
+&lt;li&gt;the point in format &#039;POINT(x y)&#039;&lt;/li&gt;
+&lt;/ul&gt;
 
 
 
@@ -142,7 +149,7 @@ Methods
 
     string idfly\components\GeoHelper::decodeRegion($region)
 
-Раскодировать регион из mysql-представления в строкове представление
+Decode the region out of mysql-representation into a string
 
 
 

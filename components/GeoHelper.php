@@ -3,11 +3,10 @@
 namespace idfly\components;
 
 /**
- * Класс для работы с mysql spatial-данными.
+ * Class for work with mysql spatial-data.
  *
- * Пример использования:
- *
- * class Client extends \yii\db\ActiveRecord {
+ * Example:
+ ** class Client extends \yii\db\ActiveRecord {
  *
  *     public static function find() {
  *         return parent::find()->
@@ -45,9 +44,9 @@ class GeoHelper
 {
 
     /**
-     * Закодировать строкове представление точки в mysql-представление
-     * @param  string $point массив координат через :
-     * @return string координаты через пробел
+     * Encode the string representation of the point in the mysql-representation
+     * @param  string $point - array of coordinates with delimiter `:`
+     * @return string - coordinates delimited by the gap
      */
     public static function encodePoint($point)
     {
@@ -56,9 +55,9 @@ class GeoHelper
     }
 
     /**
-     * Закодировать строкове представление региона в mysql-представление
-     * @param  string $region регион в формате "x:y;x:y;x:y"
-     * @return string координаты через запятую
+     * Encode the string representation of the region in the mysql-representation
+     * @param  string $region - region in format "x: y; x: y; x: y"
+     * @return string - coordinates delimited by `,`
      */
     public static function encodeRegion($region)
     {
@@ -75,9 +74,9 @@ class GeoHelper
     }
 
     /**
-     * Закодировать точку в выражение для вставки в mysql
-     * @param  string $point точка в формате 'x:y'
-     * @return [type]       [description]
+     * Encode the point to the expression which inserts into mysql
+     * @param  string $point - the point in the format 'x: y'
+     * @return [type] [description]
      */
     public static function pointAsExpression($point)
     {
@@ -90,9 +89,9 @@ class GeoHelper
     }
 
     /**
-     * Закодировать регион в выражение для вставки в mysql
-     * @param  string $point точка в формате 'x:y'
-     * @return [type]       [description]
+     * Encode the region to the expression which inserts into mysql
+     * @param  string $point - the point in the format "x: y; x: y; x: y"
+     * @return [type] [description]
      */
     public static function regionAsExpression($region)
     {
@@ -110,8 +109,8 @@ class GeoHelper
     }
 
     /**
-     * Раскодировать точку из mysql-представления в строкове представление
-     * @param  string $point точка в формате 'POINT(x y)'
+     * Decode the point out of mysql-representation into a string
+     * @param  string $point - the point in format 'POINT(x y)'
      * @return string
      */
     public static function decodePoint($point)
@@ -131,8 +130,8 @@ class GeoHelper
     }
 
     /**
-     * Раскодировать регион из mysql-представления в строкове представление
-     * @param  string $point точка в формате 'POLYGON((x y, x y, x y))'
+     * Decode the region out of mysql-representation into a string
+     * @param  string $point - the point in format 'POLYGON((x y, x y, x y))'
      * @return string
      */
     public static function decodeRegion($region)

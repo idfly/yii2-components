@@ -1,14 +1,15 @@
 idfly\components\DateHelper
 ===============
 
-Класс для работы с датами. Даты могут передаваться в методы в форматах:
-integer - unix timestamp (пример - 1234)
-string - mysql date string (пример - &#039;2015-12-31 10:00:00&#039; или &#039;2015-12-31&#039;)
+Class for work with dates. Dates can be passed into methods in the following
+formats:
+Integer - unix timestamp (example - 1234)
+String - mysql date string (example - &quot;12/31/2015 10:00:00&quot; or &quot;12/31/2015&quot;)
 
-Если в дату передаётся string, тогда разбор дату осуществляется стандартной
-функцией strtotime.
+If the string passes into `date`, then date parsing is standard:
+function `strtotime` uses.
 
-Примеры использования:
+Example:
 <?= yii\helpers\Html::encode(idfly\components\DateHelper::format(time(),
     ['time' => true]));
 
@@ -44,7 +45,7 @@ Methods
 
     string idfly\components\DateHelper::format(string|integer $date, array $options)
 
-Отформатировать дату; преобразует дату к виду "15 ноября 1949 10:00:30"
+Format the date; converts the date into "November 15, 1949 10:00:30"
 
 
 
@@ -53,13 +54,14 @@ Methods
 
 
 #### Arguments
-* $date **string|integer** - &lt;p&gt;дата для форматирования&lt;/p&gt;
-* $options **array** - &lt;p&gt;список опций, возможные значения
-readable - выводить месяц на русском языке (по умолчанию - true)
-year - true - всегда выводить год (год не выводится, если текущий год
-равен году в дате), false - скрыть год (по умолчанию - null)
-time - выводить время (по умолчанию - false)
-seconds - выводить секунды, если выводится время (по умолчанию - true)&lt;/p&gt;
+* $date **string|integer** - &lt;p&gt;date to format&lt;/p&gt;
+* $options **array** - &lt;p&gt;options list, possible values are:
+readable - display the month in Russian (by default - true)
+year - true - always display a year (the year is not displayed if the
+current year is equal to the year of the date), false - hide the year
+(by default - null)
+time - display time (default - false)
+seconds - display seconds, if the time is displayed (default - true)&lt;/p&gt;
 
 
 
@@ -67,7 +69,7 @@ seconds - выводить секунды, если выводится врем�
 
     integer idfly\components\DateHelper::difference(string|integer $date1, string|integer|null $date2)
 
-Получить разность между двумя датами
+Get the difference between two dates
 
 
 
@@ -76,8 +78,8 @@ seconds - выводить секунды, если выводится врем�
 
 
 #### Arguments
-* $date1 **string|integer** - &lt;p&gt;дата 1&lt;/p&gt;
-* $date2 **string|integer|null** - &lt;p&gt;дата 2; используется текущая дата если
-null&lt;/p&gt;
+* $date1 **string|integer** - &lt;p&gt;date1&lt;/p&gt;
+* $date2 **string|integer|null** - &lt;p&gt;date2; If it is null,
+then the current date uses&lt;/p&gt;
 
 

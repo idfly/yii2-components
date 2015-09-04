@@ -1,8 +1,8 @@
 idfly\components\NotifyAsset
 ===============
 
-Ассеты модального окна; подключает utility-notify.css и utility-notify.js из
-папки assets.
+Asset modal window; connects the `utility-notify.css` and `utility-notify.js`
+from `assets` folder.
 
 
 

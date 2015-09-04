@@ -3,10 +3,10 @@
 namespace idfly\components;
 
 /**
- * Утилитные ассаты; подключает utility.css.
+ * Utility assets; includes `utility.css`.
  *
- * В utility.css всё просто, можно просто прочитать файл, чтобы понять, что он
- * делает.
+ * In `utility.css` everything is simple, so you can simply read the file,
+ * to understand what it means.
  */
 class UtilityAsset extends \yii\web\AssetBundle
 {

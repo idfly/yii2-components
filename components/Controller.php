@@ -3,7 +3,7 @@
 namespace idfly\components;
 
 /**
- * Базовый контроллер; добавляет два protected-метода в контроллеры:
+ *  Basic controller; adds two protected-methods into controllers:
  *
  *   - _redirectBack($default = null)
  *   - _getElement($id, $class = null)
@@ -13,22 +13,22 @@ namespace idfly\components;
 class Controller extends \yii\web\Controller
 {
     /**
-     * Класс модели, с которым работет контроллер
+     * Model’s class, which is operated by controllers.
      * @var [type]
      */
     protected $modelClass;
 
     /**
-     * Вернуть пользователя назад, если параметр _redirect установлен в
-     * get-параметрах;
+     * Return the user back, if the _redirect parameter is set in
+     * Get-parameters;
      *
-     * Если параметра _redirect нет, тогда будет использован роут $default из
-     * аргументов
+     * If there is no _redirect parameter, then the $default route from
+     * the arguments will be used.
      *
-     * Если $default равен null, тогда будет исполльзован путь
+     * If $ default is null, then the path will be used
      * /[module]/[controller]/[index]
      *
-     * @param  string $default путь по умолчанию для перенаправления пользователя
+     * @param  string $default default path for forwarding user
      * @return yii\web\Response description
      */
     protected function _redirectBack($default = null)
@@ -47,14 +47,14 @@ class Controller extends \yii\web\Controller
     }
 
     /**
-     * Найти элемент с заданным id и заданным классом; если элемент не найден,
-     * то будет выброшено исключение; если класс не задан, то будет использован
-     * класс по умолчанию ($modelClass). Если оба класса не заданы, то будет
-     * выброшено исключение.
+     * Find the element with the given `id`, and `class`; if the element is
+     * not found, the exception will be thrown; If a class is not indicated,
+     * there will be used the default class ($modelClass). If the both
+     * classes are not set, the exception will be thrown.
      *
-     * @param  integer|array $id идентификатор или условие where по которому
-     *         выполнять поиск в виде ['key' => 'value']
-     * @param  string $class класс
+     * @param  integer|array $id id or case `where` by which the search should
+     * be done as ['key' => 'value']
+     * @param  string $class class
      * @throws \Exception
      * @throws \yii\web\HttpException
      * @return \yii\base\Model
@@ -91,10 +91,10 @@ class Controller extends \yii\web\Controller
     }
 
     /**
-     * Заполнить мета-теги страницы
+     * Fill in the meta-tags of the page
      *
-     * @param \yii\base\View $view объект представления
-     * @param array $metaArray массив с данными
+     * @param \yii\base\View $view view object
+     * @param array $metaArray array with data
      */
     public static function registerMetaTags($view, $metaArray)
     {

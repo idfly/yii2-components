@@ -1,7 +1,7 @@
 idfly\components\Controller
 ===============
 
-Базовый контроллер; добавляет два protected-метода в контроллеры:
+Basic controller; adds two protected-methods into controllers:
 
 - _redirectBack($default = null)
   - _getElement($id, $class = null)
@@ -25,7 +25,7 @@ Properties
 
     protected \idfly\components\[type] $modelClass
 
-Класс модели, с которым работет контроллер
+Model’s class, which is operated by controllers.
 
 
 
@@ -40,20 +40,20 @@ Methods
 
     \idfly\components\yii\web\Response idfly\components\Controller::_redirectBack(string $default)
 
-Вернуть пользователя назад, если параметр _redirect установлен в
-get-параметрах;
+Return the user back, if the _redirect parameter is set in
+Get-parameters;
 
-Если параметра _redirect нет, тогда будет использован роут $default из
-аргументов
+If there is no _redirect parameter, then the $default route from
+the arguments will be used.
 
-Если $default равен null, тогда будет исполльзован путь
+If $ default is null, then the path will be used
 /[module]/[controller]/[index]
 
 * Visibility: **protected**
 
 
 #### Arguments
-* $default **string** - &lt;p&gt;путь по умолчанию для перенаправления пользователя&lt;/p&gt;
+* $default **string** - &lt;p&gt;default path for forwarding user&lt;/p&gt;
 
 
 
@@ -61,10 +61,10 @@ get-параметрах;
 
     \yii\base\Model idfly\components\Controller::_getElement(integer|array $id, string $class)
 
-Найти элемент с заданным id и заданным классом; если элемент не найден,
-то будет выброшено исключение; если класс не задан, то будет использован
-класс по умолчанию ($modelClass). Если оба класса не заданы, то будет
-выброшено исключение.
+Find the element with the given `id`, and `class`; if the element is
+not found, the exception will be thrown; If a class is not indicated,
+there will be used the default class ($modelClass). If the both
+classes are not set, the exception will be thrown.
 
 
 
@@ -72,9 +72,9 @@ get-параметрах;
 
 
 #### Arguments
-* $id **integer|array** - &lt;p&gt;идентификатор или условие where по которому
-выполнять поиск в виде [&#039;key&#039; =&gt; &#039;value&#039;]&lt;/p&gt;
-* $class **string** - &lt;p&gt;класс&lt;/p&gt;
+* $id **integer|array** - &lt;p&gt;id or case &lt;code&gt;where&lt;/code&gt; by which the search should
+be done as [&#039;key&#039; =&gt; &#039;value&#039;]&lt;/p&gt;
+* $class **string** - &lt;p&gt;class&lt;/p&gt;
 
 
 
@@ -82,7 +82,7 @@ get-параметрах;
 
     mixed idfly\components\Controller::registerMetaTags(\yii\base\View $view, array $metaArray)
 
-Заполнить мета-теги страницы
+Fill in the meta-tags of the page
 
 
 
@@ -91,7 +91,7 @@ get-параметрах;
 
 
 #### Arguments
-* $view **yii\base\View** - &lt;p&gt;объект представления&lt;/p&gt;
-* $metaArray **array** - &lt;p&gt;массив с данными&lt;/p&gt;
+* $view **yii\base\View** - &lt;p&gt;view object&lt;/p&gt;
+* $metaArray **array** - &lt;p&gt;array with data&lt;/p&gt;
 
 

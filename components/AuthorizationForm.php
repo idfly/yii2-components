@@ -2,15 +2,15 @@
 
 namespace idfly\components;
 /**
- * Форма авторизации пользователя; использование:
+ * User's authorization form; Usage:
  *
  * $authorizationForm = new \idfly\components\AuthorizationForm();
  * $authorizationForm->load(\yii::$app->request->post());
  * $success = $authorizationForm->login();
  *
- * Авторизация проходит по полю login и модели \app\models\User, для
- * кастомные параметры можно указать в конструкторе:
- *
+ * Authorization passes through `login` field and model `\app\models\User`,
+ * Custom parameters could be indicated in the constructor:
+
  * $authorizationForm = new \idfly\components\AuthorizationForm([
  *    'loginField' => 'email',
  *    'modelClass' => 'app\models\Admin',
@@ -20,15 +20,14 @@ class AuthorizationForm extends \yii\base\Model
 {
 
     /**
-     * Поле модели, которое будет использоваться для логина.
+     * The field in the model which will be used for `login`.
      * @var string
      */
     public $loginField = 'login';
 
     /**
-     * Класс модели, который будет использоваться для логина. Модель должна
-     * подключать трейт Authorization или имплементировать интерфейс этого
-     * трейта.
+     * Model’s class, which will be used for `login`. The model should
+     * require `Authorization` trait or implement the trait’s interface.
      * @var string
      */
     public $modelClass = 'app\models\User';
@@ -49,13 +48,13 @@ class AuthorizationForm extends \yii\base\Model
     public function attributeLabels()
     {
         return [
-            $this->loginField => 'Login',
-            'password' => 'Password',
+            $this->loginField => 'Логин',
+            'password' => 'Пароль',
         ];
     }
 
     /**
-     * Выполнить авторизацию.
+     * Authorize.
      * @return boolean
      */
     public function login()

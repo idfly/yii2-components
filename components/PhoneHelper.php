@@ -3,14 +3,15 @@
 namespace idfly\components;
 
 /**
- * Хелпер для работы с телефонами
+ * Helper for work with phones
  */
 class PhoneHelper
 {
 
     /**
-     * Привести телефон к формату 71002003040
-     * @param  string $phone телефон в любом формате
+     * Format the phone as follows
+     * 71002003040
+     * @param  string $phone - the phone at any format
      * @return string
      */
     public static function prepare($phone)
@@ -21,8 +22,8 @@ class PhoneHelper
     }
 
     /**
-     * Проверить формат телефона
-     * @param  string $phone телефон в любом формате
+     * Check the format of the phone
+     *@param string $phone - the phone at any format
      * @return boolean
      */
     public static function validate($phone)
@@ -31,8 +32,8 @@ class PhoneHelper
     }
 
     /**
-     * Отформатировать номер телефона для удобства чтения
-     * @param  string $phone телефон
+     * Format the phone number to make it more readable
+     * @param  string $phone - phone
      * @return string
      */
     public static function format($phone)

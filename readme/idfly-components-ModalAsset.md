@@ -1,8 +1,8 @@
 idfly\components\ModalAsset
 ===============
 
-Ассеты модального окна; подключает utility-modal.css и utility-modal.js из
-папки assets.
+Modal window asset; includes the `utility-modal.css` and `utility-modal.js`
+from `assets` folder.
 
 
 
