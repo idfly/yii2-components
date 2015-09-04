@@ -7,27 +7,27 @@ Methods
 
 ### create
 
-    UtilityModal.create(options)
+UtilityModal.create(options)
 
-Создать модальное окно.
+Create a modal window.
 
-1. Создаёт модальное окно и отображает его
+1. Creates a modal window and displays it
 
-2. Когда окно будет скрыто, оно автоматически уничтожится
+2. Then the window is hidden, it will be destroyed automatically
 
-3. Принимает аргумент options, который может содержать следующие значения:
+3. Accepts `options` argument, which may contain following values:
 
-  - title - тайтл окна
+ - title - window title
 
-  - class - класс окна; по умолчанию: "modal-full"
+ - class - window class; default: "modal-full"
 
-  - contents - содержимое модального окна; по умолчанию: "loading..."
+ - contents - the contents of a modal window; default: "loading..."
 
-  - ajax - опции аякс запроса (http://api.jquery.com/jquery.ajax/)
+ - ajax - ajax request options (http://api.jquery.com/jquery.ajax/)
 
-  - callback - колбэк для вызова, если используется аякс запрос; колбэк примет аргумент - html-элемент модального окна
-    (<div class="modal">...</div>)
+ - callback - callback for call, if ajax-request uses; callback accepts an
+ argument modal window html-element (<div class="modal">...</div>)
 
-4. Результат: html-элемент модального окна (<div class="modal">...</div>)
+4. Result: modal window html-element (<div class="modal">...</div>)
 
-5. Для корректного отображения необходимо подключить ассет UtilityModalAsset
+5. For correct display, you must connect Asset UtilityModalAsset

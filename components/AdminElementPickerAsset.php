@@ -3,7 +3,7 @@
 namespace idfly\components;
 
 /**
- * Ассеты дэйтпикера
+ * DatePicker assets
  */
 class AdminElementPickerAsset extends \yii\web\AssetBundle
 {

@@ -49,8 +49,8 @@ class AuthorizationForm extends \yii\base\Model
     public function attributeLabels()
     {
         return [
-            $this->loginField => 'Логин',
-            'password' => 'Пароль',
+            $this->loginField => 'Login',
+            'password' => 'Password',
         ];
     }
 

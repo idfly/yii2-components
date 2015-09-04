@@ -1,14 +1,13 @@
-idfly\components\AdminAsset
+idfly\components\NotifyAsset
 ===============
 
-Admin panel assets; include admin.css from assets folder depends on
-UtilityAsset
-
-In admin.css everything is simple you may just read a file to understand what
-it does.
+Ассеты модального окна; подключает utility-notify.css и utility-notify.js из
+папки assets.
 
 
-* Class name: AdminAsset
+
+
+* Class name: NotifyAsset
 * Namespace: idfly\components
 * Parent class: yii\web\AssetBundle
 
@@ -33,7 +32,7 @@ Properties
 
 ### $css
 
-    public mixed $css = array('admin.css')
+    public mixed $css = array('notify.css')
 
 
 
@@ -44,7 +43,7 @@ Properties
 
 ### $js
 
-    public mixed $js = array()
+    public mixed $js = array('notify.js')
 
 
 
@@ -55,7 +54,7 @@ Properties
 
 ### $depends
 
-    public mixed $depends = array('idfly\components\UtilityAsset')
+    public mixed $depends = array()
 
 
 

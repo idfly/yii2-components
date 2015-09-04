@@ -28,6 +28,7 @@ Methods
 
 
 * Visibility: **public**
+* This method is **static**.
 
 
 #### Arguments

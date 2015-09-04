@@ -59,7 +59,7 @@ get-параметрах;
 
 ### _getElement
 
-    \yii\base\Model idfly\components\Controller::_getElement(integer $id, string $class)
+    \yii\base\Model idfly\components\Controller::_getElement(integer|array $id, string $class)
 
 Найти элемент с заданным id и заданным классом; если элемент не найден,
 то будет выброшено исключение; если класс не задан, то будет использован
@@ -72,7 +72,26 @@ get-параметрах;
 
 
 #### Arguments
-* $id **integer** - &lt;p&gt;идентификатор&lt;/p&gt;
+* $id **integer|array** - &lt;p&gt;идентификатор или условие where по которому
+выполнять поиск в виде [&#039;key&#039; =&gt; &#039;value&#039;]&lt;/p&gt;
 * $class **string** - &lt;p&gt;класс&lt;/p&gt;
+
+
+
+### registerMetaTags
+
+    mixed idfly\components\Controller::registerMetaTags(\yii\base\View $view, array $metaArray)
+
+Заполнить мета-теги страницы
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $view **yii\base\View** - &lt;p&gt;объект представления&lt;/p&gt;
+* $metaArray **array** - &lt;p&gt;массив с данными&lt;/p&gt;
 
 

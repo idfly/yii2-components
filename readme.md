@@ -1,39 +1,54 @@
-Утилиты yii2 от idfly
-=====================
+# yii2-components
 
-Вспомогательные утилиты от idfly. Использовать по желанию. Коммиты
-приветствуются. Чтобы обновить документацию, нужно установить консольные
-утилиты http://www.phpdoc.org/ и https://github.com/evert/phpdoc-md и вызвать
-команду ./build.
+Supporting utility Module from idfly.
 
-Контроллеры
+## Set
+
+1. To the project file `composer.json` add to the `require` section:
+
+      "idfly/yii2-components": "dev-master"
+
+2. To the `repositories` section:
+
+      {
+           "type": "git",
+           "url": "git@bitbucket.org:idfly/yii2-components.git"
+       }
+
+3. Run `composer update`
+
+4. Add this module to the project's configuration list:
+
+      `$config['modules']['idfly'] = ['class' => 'idfly\Module'];`
+
+Controllers
 -----------
 
-  - [Контроллер](readme/idfly-components-Controller.md)
-  - [Контроллер админа](readme/idfly-components-AdminController.md)
+ - [Controller](readme/idfly-components-Controller.md)
+ - [Admin`s Controller](readme/idfly-components-AdminController.md)
 
-Авторизация
+Authorization
 -----------
-  - [Трейт](components/Authorization.php)
-  - [Форма](readme/idfly-components-AuthorizationForm.md)
+ - [Trait](components/Authorization.php)
+ - [Form](readme/idfly-components-AuthorizationForm.md)
 
-Хелперы
+Helpers
 -------
 
-  - [Даты](readme/idfly-components-DateHelper.md)
-  - [Гео](readme/idfly-components-GeoHelper.md)
-  - [Числа](readme/idfly-components-NumberHelper.md)
-  - [Пароль](readme/idfly-components-PasswordHelper.md)
-  - [Телефон](readme/idfly-components-PhoneHelper.md)
+ - [Date](readme/idfly-components-DateHelper.md)
+ - [Geo](readme/idfly-components-GeoHelper.md)
+ - [Numbers](readme/idfly-components-NumberHelper.md)
+ - [Password](readme/idfly-components-PasswordHelper.md)
+ - [Phone](readme/idfly-components-PhoneHelper.md)
 
 Javascript
 ----------
 
-  - [Модальное окно](readme-extra/utility-modal.md)
+ - [Modal Window](readme-extra/utility-modal.md)
 
-Ассеты
+Assets
 ------
 
-  - [Админ](readme/idfly-components-AdminAsset.md)
-  - [Модальное окно](readme/idfly-components-UtilityModalAsset.md)
-  - [Утилиты](readme/idfly-components-UtilityAsset.md)
+ - [Admin](readme/idfly-components-AdminAsset.md)
+ - [Modal Window](readme/idfly-components-UtilityModalAsset.md)
+ - [Utilities](readme/idfly-components-UtilityAsset.md)

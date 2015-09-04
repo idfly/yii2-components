@@ -5,31 +5,33 @@ namespace idfly\components;
 use yii\helpers\ArrayHelper;
 
 /**
- * Админ контроллер; добавляет базовы операции (список, просмотр, добавление,
- * изменение, удаление) в контроллеры, которые наследуются от него.
+ * Admin panel Controller; adds basic operations (list, view, add, update,
+ * delete) to the controllers, which are inherited from it.
  *
- * Все шаблоны резолвятся по следующим правилам:
+ * All templates resolves by following rules:
  *
- *   1. Нужный шаблон ищется в папке views/[controller]
- *   2. Если не найдено, то используется папка admin/views/layouts/admin
- *      (значение может быть переопределено в переменной $viewPath)
- *   3. Если не найдено, то используется папка vendor/idfly/yii2-components/views/admin
+ *  1. Needed template is searched in views/[controller] folder
+ *  2. If it is not found, you may use admin/views/layouts/admin folder
+ *      (overridden in the variable $viewPath)
+ *  3. If it is not found, you may use vendor/idfly/yii2-components/views/admin
+ *      folder
  *
- * Заголовок страницы берётся из массива protected $titles.
+ * The page title is taken from the array protected $titles.
  *
- * Javascript страницы берётся из массива protected $js.
+ * Javascript of the page is taken from array protected $js.
  *
- * Контроллер работает с моделью, указанной в переменной protected $modelClass.
+ * The controller works with a model, indicated in the variable
+ * protected $modelClass.
  *
- * Добавляет 5 action'ов в контроллер:
+ * Adds 5 actions to the controller:
  *   - actionIndex
  *   - actionView
  *   - actionCreate
  *   - actionUpdate
  *   - actionDelete
  *
- * Чтобы дефолтные view нормально отображались, нужно подключить AdminAsset в
- * Asset'ы.
+ * To default view is displayed normally you need to include AdminAsset in
+ * assets.
  *
  */
 class AdminController extends \idfly\components\Controller
@@ -42,19 +44,21 @@ class AdminController extends \idfly\components\Controller
     public $layout = 'admin.php';
 
     /**
-     * Список ключей, по которым доступен поиск по запросу через "и"; пример
-     * массива: ['date?>', 'price?<=', 'name?'] (преобразует в запрос: date
-     * больше значения и price меньше либо равна значению и name равно значению)
+     * List of keys which gives the access to search on query through "AND";
+     * the example of array: ['date?>', 'price?<=', 'name?'] (converts the
+     * query: `date` more value, `price` less or equal, `name` is equal to
+     * the value)
      *
-     * Если в GET придёт значение NULL, тогда запрос будет выглядеть как IS NULL,
-     * если придёт NOTNULL тогда как "IS NOT NULL" для пустого оператора
+     * If GET receives NULL value when the query will be look like IS NULL,
+     * if it receives NOT NULL while "IS NOT NULL" for the empty operator
      * ('name?')
+     *
      * @var array
      */
     protected $allowedQueryKeys = null;
 
     /**
-     * Заголовки разделов; возможные значения ключей массива:
+     * The section titles; the possible values of the keys array:
      *   - index
      *   - view
      *   - create
@@ -64,8 +68,8 @@ class AdminController extends \idfly\components\Controller
     protected $titles = [];
 
     /**
-     * javascript, который нужно выполнить для того, или иного раздела;
-     * возможные значения ключей массива:
+     * javascript, which is needed to execute for some section;
+     * the possible values of the keys array:
      *   - index
      *   - view
      *   - create
@@ -76,38 +80,38 @@ class AdminController extends \idfly\components\Controller
     protected $js = [];
 
     /**
-     * последний сохранённый (добавленный или обновлённый) элемент
+     * last saved (added or updated) element
      * @var mixed
      */
     protected $_lastSavedElement;
 
     /**
-     * Путь для кастомных view
+     * path for custom views
      * @var string
      */
     protected $viewPath = 'admin/views/layouts/admin';
 
     /**
-     * Отобразить список элементов.
+     * Display the list of elements.
      *
-     * - отображает список моделей
+     * - displays the list of models
      *
-     * - список моделей получается из метода _getList
+     * - the list of models getting from the method  _getList
      *
-     * - поиск моделей производится автоматически на основе GET-параметров и
-     *   значений переменных классов queryKeys, searchKeys (см. phpdoc к
-     *   $queryKeys и $searchKeys)
+     * - the search of models is automatically produces based on
+     * GET-parameters and variables of queryKeys, searchKeys classes (see
+     * phpdoc to $queryKeys and $searchKeys)
      *
-     * - используется заголовок "index"
+     * - title "index" is used
      *
-     * - используется javascript "index"
+     * - javascript "index" is used
      *
-     * - используются следующие view:
-     *   - index.php - оболочка
-     *   - index-list.php - список моделей
-     *   - index-footer.php - футер списка (постраничная навигация)
+     * - following views is used:
+     *   - index.php - shell
+     *   - index-list.php - the list of models
+     *   - index-footer.php - the footer of the list (pagination)
      *
-     * @return string html-код страницы
+     * @return string html-code of the page
      */
     public function actionIndex()
     {
@@ -140,11 +144,11 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Произвести рендер страницы; если вызывается аякс запрос - рендер будет
-     * произведён без layout'а
-     * @param  string $view view-файл
-     * @param  array $data данные для view
-     * @return string html-код страницы
+     * page render; if ajax-request calls - render will be promoted without
+     * layout
+     * @param  string $view view-file
+     * @param  array $data data for view
+     * @return string html-code of the page
      */
     protected function _render($view, $data)
     {
@@ -156,22 +160,22 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Просмотреть элемент.
+     * View element.
      *
-     * - отображает страницу просмотра модели
+     * - displays the page of model view
      *
-     * - используется title "view"
+     * - title "view" is used
      *
-     * - используется javascript "view"
+     * - javascript "view" is used
      *
-     * - данные для view получаются через метод _getViewData
+     * - data for view gets through the method _getViewData
      *
-     * - используются следующие view:
-     *   - view.php - оболочка
-     *   - view-body.php - внутренности
+     * - following views is used:
+     *   - view.php - shell
+     *   - view-body.php - contents
      *
-     * @param  int $id идентификатор элемента
-     * @return string html-код страницы
+     * @param  int $id element ID
+     * @return string html-code of the page
      */
     public function actionView($id)
     {
@@ -207,24 +211,25 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Страница создания элемента.
+     * Page to create the element.
      *
-     * - создаёт модель
+     * - creates a model
      *
-     * - используется title "create"
+     * - title "create" is used
      *
-     * - используется javascript:
+     * - javascript:
      *   - create
      *   - form
+     *  is used
      *
-     * - данные для view получаются через метод _getCreateData
+     * - data for view gets through the method _getCreateData
      *
-     * - используются следующие view:
-     *   - create.php - оболочка
-     *   - create-body.php - оболочка формы
-     *   - form.php - форма (шэрится между create и update)
+     * - following views is used:
+     *   - create.php - shell
+     *   - create-body.php - form-shell
+     *   - form.php - form (share between create and update)
      *
-     * @return string html-код страницы
+     * @return string html-code of the page
      */
     public function actionCreate()
     {
@@ -242,24 +247,25 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Страница создания элемента.
+     * Page to create the element.
      *
-     * - создаёт модель
+     * - creates a model
      *
-     * - используется title "create"
+     * - title "create" is used
      *
-     * - используется javascript:
+     * - javascript:
      *   - create
      *   - form
+     *  is used
      *
-     * - данные для view получаются через метод _getCreateData
+     * - data for view gets through the method _getCreateData
      *
-     * - используются следующие view:
-     *   - create.php - оболочка
-     *   - create-body.php - оболочка формы
-     *   - form.php - форма (шэрится между create и update)
+     * - following views is used:
+     *   - create.php - shell
+     *   - create-body.php - form-shell
+     *   - form.php - form (share between create and update)
      *
-     * @return string html-код страницы
+     * @return string html-code of the page
      */
     public function actionCreateJson()
     {
@@ -277,9 +283,9 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Получить данные для actionCreate
-     * @param  mixed $element элемент
-     * @return array данные для actionCreate
+     * Get data for actionCreate
+     * @param  mixed $element element
+     * @return array data for actionCreate
      */
     protected function _getCreateData($element)
     {
@@ -297,25 +303,26 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Обновить элемент.
+     * Update the element.
      *
-     * - обновляет модель
+     * - updates the model
      *
-     * - используется title "update"
+     * - title "update" is used
      *
-     * - используется javascript:
+     *  - javascript:
      *   - update
      *   - form
+     *  is used
      *
-     * - данные для view получаются через метод _getUpdateData
+     * - data for view gets through the method _getUpdateData
      *
-     * - используются следующие view:
-     *   - update.php - оболочка
-     *   - update-body.php - оболочка формы
-     *   - form.php - форма (шэрится между create и update)
+     * - following views is used:
+     *   - update.php - shell
+     *   - update-body.php - form-shell
+     *   - form.php - form (share between create and update)
      *
-     * @param  int $id идентификатор элемента
-     * @return string html-код страницы
+     * @param  int $id element ID
+     * @return string html-code of the page
      */
     public function actionUpdate($id)
     {
@@ -329,25 +336,25 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Обновить элемент.
+     * Update the element.
      *
-     * - обновляет модель
+     * - updates the model
      *
-     * - используется title "update"
+     * - title "update" is used
      *
-     * - используется javascript:
+     *  - javascript is used:
      *   - update
      *   - form
      *
-     * - данные для view получаются через метод _getUpdateData
+     * - data for view gets through the method _getUpdateData
      *
-     * - используются следующие view:
-     *   - update.php - оболочка
-     *   - update-body.php - оболочка формы
-     *   - form.php - форма (шэрится между create и update)
+     * - following views is used:
+     *   - update.php - shell
+     *   - update-body.php - form-shell
+     *   - form.php - form (share between create and update)
      *
-     * @param  int $id идентификатор элемента
-     * @return string html-код страницы
+     * @param  int $id element ID
+     * @return string html-code of the page
      */
     public function actionUpdateJson($id)
     {
@@ -364,10 +371,9 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Получить данные для actionUpdate.
-     *
-     * @param  mixed $element элемент
-     * @return array данные для actionUpdate
+     * Get data for actionUpdate
+     * @param  mixed $element element
+     * @return array data for actionUpdate
      */
     public function _getUpdateData($element)
     {
@@ -385,8 +391,8 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Удалить элемент
-     * @param  int $id идентификатор элемента
+     * Delete element
+     * @param  int $id element ID
      */
     public function actionDelete($id)
     {
@@ -395,8 +401,8 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Получить отфильтрованный список данных
-     * @return \yii\data\ActiveDataProvider список данных
+     * Get filtered data list
+     * @return \yii\data\ActiveDataProvider data list
      */
     protected function _getList()
     {
@@ -426,13 +432,13 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Получить поля формы элемента; позволяет выборочно переопределить поля
-     * формы для элемента в дочернем классе следующим образом:
+     * Get the form element field; allows to selectively override the field
+     * of form for element in derived class as follows:
      *   return [
      *       'password' => $form->field($element, 'property')->input('password')
      *   ];
-     * @param  \yii\widgets\ActiveForm $form форма
-     * @param  mixed $element элемент
+     * @param  \yii\widgets\ActiveForm $form form
+     * @param  mixed $element element
      * @return array
      */
     public function getFieldsInputs($form, $element)
@@ -441,9 +447,9 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Получить заголовок раздела
-     * @param  string $type тип раздела
-     * @return string       title раздела
+     * Get the title of the section
+     * @param  string $type type of section
+     * @return string section title
      */
     protected function _getTitle($type)
     {
@@ -455,9 +461,8 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Получить идентификатор контроллера для использования в названиях
-     * переменных
-     * @param  boolean $many во множественном числе
+     * Get the controller ID for usage in variables names
+     * @param  boolean $many in plural
      * @return string
      */
     protected function _getKey($many = true)
@@ -475,11 +480,11 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Сохранить элемент; выполняется только в пост-запросе; если элемент
-     * был сохранён, произойдёт переход на предыдущуюю страницу или страницу
-     * списка данных
-     * @param  mixed $element элемент для сохранения
-     * @return
+     * Save the element; executes only in a post-query; if element was saved
+     * will be a transition to the previous page or the page with data list
+     *
+     * @param  mixed $element element for saving
+     * @return boolean
      */
     protected function _save($element)
     {
@@ -498,9 +503,9 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Найти view и вернуть его путь
-     * @param  string $view идентификатор view (например, index или update)
-     * @param  boolean $fullPath веруть полный путь к view
+     * Find the view and return it's path
+     * @param  string $view view ID (for example, index or update)
+     * @param  boolean $fullPath returns full path to view
      * @return string
      */
     protected function _resolveView($view, $fullPath = false)
@@ -545,8 +550,8 @@ class AdminController extends \idfly\components\Controller
     }
 
     /**
-     * Зарегестрировать функцию js для выполнения
-     * @param  string $type тип функции
+     * Register the js function for execution
+     * @param  string $type function type
      */
     protected function _registerJs($type)
     {

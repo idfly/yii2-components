@@ -3,11 +3,11 @@
 namespace idfly\components;
 
 /**
- * Ассеты администратора; подключает admin.css из папки assets, зависит от
- * UtilityAsset.
+ * Admin panel assets; include admin.css from assets folder depends on
+ * UtilityAsset
  *
- * В admin.css всё просто, можно просто прочитать файл, чтобы понять, что он
- * делает.
+ * In admin.css everything is simple you may just read a file to understand what
+ * it does.
  */
 class AdminAsset extends \yii\web\AssetBundle
 {

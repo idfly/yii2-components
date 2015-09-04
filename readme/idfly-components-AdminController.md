@@ -1,31 +1,33 @@
 idfly\components\AdminController
 ===============
 
-Админ контроллер; добавляет базовы операции (список, просмотр, добавление,
-изменение, удаление) в контроллеры, которые наследуются от него.
+Admin panel Controller; adds basic operations (list, view, add, update,
+delete) to the controllers, which are inherited from it.
 
-Все шаблоны резолвятся по следующим правилам:
+All templates resolves by following rules:
 
-  1. Нужный шаблон ищется в папке views/[controller]
-  2. Если не найдено, то используется папка admin/views/layouts/admin
-     (значение может быть переопределено в переменной $viewPath)
-  3. Если не найдено, то используется папка vendor/idfly/yii2-components/views/admin
+ 1. Needed template is searched in views/[controller] folder
+ 2. If it is not found, you may use admin/views/layouts/admin folder
+     (overridden in the variable $viewPath)
+ 3. If it is not found, you may use vendor/idfly/yii2-components/views/admin
+     folder
 
-Заголовок страницы берётся из массива protected $titles.
+The page title is taken from the array protected $titles.
 
-Javascript страницы берётся из массива protected $js.
+Javascript of the page is taken from array protected $js.
 
-Контроллер работает с моделью, указанной в переменной protected $modelClass.
+The controller works with a model, indicated in the variable
+protected $modelClass.
 
-Добавляет 5 action'ов в контроллер:
+Adds 5 actions to the controller:
   - actionIndex
   - actionView
   - actionCreate
   - actionUpdate
   - actionDelete
 
-Чтобы дефолтные view нормально отображались, нужно подключить AdminAsset в
-Asset'ы.
+To default view is displayed normally you need to include AdminAsset in
+assets.
 
 
 * Class name: AdminController
@@ -51,29 +53,17 @@ Properties
 * Visibility: **public**
 
 
-### $queryKeys
+### $allowedQueryKeys
 
-    protected array $queryKeys = array()
+    protected array $allowedQueryKeys = null
 
-Список ключей, по которым доступен поиск по запросу через "или"; пример:
-['first_name', 'last_name'] (будет преобразовано в запрос:
-first_name LIKE значение% или last_name LIKE значение% при поиске моделей
+List of keys which gives the access to search on query through "AND";
+the example of array: ['date?>', 'price?<=', 'name?'] (converts the
+query: `date` more value, `price` less or equal, `name` is equal to
+the value)
 
-
-
-* Visibility: **protected**
-
-
-### $searchKeys
-
-    protected array $searchKeys = array()
-
-Список ключей, по которым доступен поиск по запросу через "и"; пример
-массива: ['date?>', 'price?<=', 'name?'] (преобразует в запрос: date
-больше значения и price меньше либо равна значению и name равно значению)
-
-Если в GET придёт значение NULL, тогда запрос будет выглядеть как IS NULL,
-если придёт NOTNULL тогда как "IS NOT NULL" для пустого оператора
+If GET receives NULL value when the query will be look like IS NULL,
+if it receives NOT NULL while "IS NOT NULL" for the empty operator
 ('name?')
 
 * Visibility: **protected**
@@ -83,7 +73,7 @@ first_name LIKE значение% или last_name LIKE значение% при
 
     protected array $titles = array()
 
-Заголовки разделов; возможные значения ключей массива:
+The section titles; the possible values of the keys array:
   - index
   - view
   - create
@@ -98,8 +88,8 @@ first_name LIKE значение% или last_name LIKE значение% при
 
     protected array $js = array()
 
-javascript, который нужно выполнить для того, или иного раздела;
-возможные значения ключей массива:
+javascript, which is needed to execute for some section;
+the possible values of the keys array:
   - index
   - view
   - create
@@ -115,7 +105,7 @@ javascript, который нужно выполнить для того, или
 
     protected mixed $_lastSavedElement
 
-последний сохранённый (добавленный или обновлённый) элемент
+last saved (added or updated) element
 
 
 
@@ -126,7 +116,7 @@ javascript, который нужно выполнить для того, или
 
     protected string $viewPath = 'admin/views/layouts/admin'
 
-Путь для кастомных view
+path for custom views
 
 
 
@@ -152,24 +142,37 @@ Methods
 
     string idfly\components\AdminController::actionIndex()
 
-Отобразить список элементов.
+Display the list of elements.
 
-- отображает список моделей
+- displays the list of models
 
-- список моделей получается из метода _getList
+- the list of models getting from the method  _getList
 
-- поиск моделей производится автоматически на основе GET-параметров и
-  значений переменных классов queryKeys, searchKeys (см. phpdoc к
-  $queryKeys и $searchKeys)
+- the search of models is automatically produces based on
+GET-parameters and variables of queryKeys, searchKeys classes (see
+phpdoc to $queryKeys and $searchKeys)
 
-- используется заголовок "index"
+- title "index" is used
 
-- используется javascript "index"
+- javascript "index" is used
 
-- используются следующие view:
-  - index.php - оболочка
-  - index-list.php - список моделей
-  - index-footer.php - футер списка (постраничная навигация)
+- following views is used:
+  - index.php - shell
+  - index-list.php - the list of models
+  - index-footer.php - the footer of the list (pagination)
+
+* Visibility: **public**
+
+
+
+
+### actionListJson
+
+    mixed idfly\components\AdminController::actionListJson()
+
+
+
+
 
 * Visibility: **public**
 
@@ -180,8 +183,8 @@ Methods
 
     string idfly\components\AdminController::_render(string $view, array $data)
 
-Произвести рендер страницы; если вызывается аякс запрос - рендер будет
-произведён без layout'а
+page render; if ajax-request calls - render will be promoted without
+layout
 
 
 
@@ -189,8 +192,8 @@ Methods
 
 
 #### Arguments
-* $view **string** - &lt;p&gt;view-файл&lt;/p&gt;
-* $data **array** - &lt;p&gt;данные для view&lt;/p&gt;
+* $view **string** - &lt;p&gt;view-file&lt;/p&gt;
+* $data **array** - &lt;p&gt;data for view&lt;/p&gt;
 
 
 
@@ -198,25 +201,25 @@ Methods
 
     string idfly\components\AdminController::actionView(integer $id)
 
-Просмотреть элемент.
+View element.
 
-- отображает страницу просмотра модели
+- displays the page of model view
 
-- используется title "view"
+- title "view" is used
 
-- используется javascript "view"
+- javascript "view" is used
 
-- данные для view получаются через метод _getViewData
+- data for view gets through the method _getViewData
 
-- используются следующие view:
-  - view.php - оболочка
-  - view-body.php - внутренности
+- following views is used:
+  - view.php - shell
+  - view-body.php - contents
 
 * Visibility: **public**
 
 
 #### Arguments
-* $id **integer** - &lt;p&gt;идентификатор элемента&lt;/p&gt;
+* $id **integer** - &lt;p&gt;element ID&lt;/p&gt;
 
 
 
@@ -228,7 +231,7 @@ Methods
 
 
 
-* Visibility: **public**
+* Visibility: **protected**
 
 
 #### Arguments
@@ -236,26 +239,70 @@ Methods
 
 
 
+### actionViewJson
+
+    mixed idfly\components\AdminController::actionViewJson($id)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $id **mixed**
+
+
+
 ### actionCreate
 
     string idfly\components\AdminController::actionCreate()
 
-Страница создания элемента.
+Page to create the element.
 
-- создаёт модель
+- creates a model
 
-- используется title "create"
+- title "create" is used
 
-- используется javascript:
+- javascript:
   - create
   - form
+ is used
 
-- данные для view получаются через метод _getCreateData
+- data for view gets through the method _getCreateData
 
-- используются следующие view:
-  - create.php - оболочка
-  - create-body.php - оболочка формы
-  - form.php - форма (шэрится между create и update)
+- following views is used:
+  - create.php - shell
+  - create-body.php - form-shell
+  - form.php - form (share between create and update)
+
+* Visibility: **public**
+
+
+
+
+### actionCreateJson
+
+    string idfly\components\AdminController::actionCreateJson()
+
+Page to create the element.
+
+- creates a model
+
+- title "create" is used
+
+- javascript:
+  - create
+  - form
+ is used
+
+- data for view gets through the method _getCreateData
+
+- following views is used:
+  - create.php - shell
+  - create-body.php - form-shell
+  - form.php - form (share between create and update)
 
 * Visibility: **public**
 
@@ -266,7 +313,7 @@ Methods
 
     array idfly\components\AdminController::_getCreateData(mixed $element)
 
-Получить данные для actionCreate
+Get data for actionCreate
 
 
 
@@ -274,7 +321,7 @@ Methods
 
 
 #### Arguments
-* $element **mixed** - &lt;p&gt;элемент&lt;/p&gt;
+* $element **mixed** - &lt;p&gt;element&lt;/p&gt;
 
 
 
@@ -282,28 +329,58 @@ Methods
 
     string idfly\components\AdminController::actionUpdate(integer $id)
 
-Обновить элемент.
+Update the element.
 
-- обновляет модель
+- updates the model
 
-- используется title "update"
+- title "update" is used
 
-- используется javascript:
+ - javascript:
   - update
   - form
+ is used
 
-- данные для view получаются через метод _getUpdateData
+- data for view gets through the method _getUpdateData
 
-- используются следующие view:
-  - update.php - оболочка
-  - update-body.php - оболочка формы
-  - form.php - форма (шэрится между create и update)
+- following views is used:
+  - update.php - shell
+  - update-body.php - form-shell
+  - form.php - form (share between create and update)
 
 * Visibility: **public**
 
 
 #### Arguments
-* $id **integer** - &lt;p&gt;идентификатор элемента&lt;/p&gt;
+* $id **integer** - &lt;p&gt;element ID&lt;/p&gt;
+
+
+
+### actionUpdateJson
+
+    string idfly\components\AdminController::actionUpdateJson(integer $id)
+
+Update the element.
+
+- updates the model
+
+- title "update" is used
+
+ - javascript is used:
+  - update
+  - form
+
+- data for view gets through the method _getUpdateData
+
+- following views is used:
+  - update.php - shell
+  - update-body.php - form-shell
+  - form.php - form (share between create and update)
+
+* Visibility: **public**
+
+
+#### Arguments
+* $id **integer** - &lt;p&gt;element ID&lt;/p&gt;
 
 
 
@@ -311,7 +388,7 @@ Methods
 
     array idfly\components\AdminController::_getUpdateData(mixed $element)
 
-Получить данные для actionUpdate.
+Get data for actionUpdate
 
 
 
@@ -319,7 +396,7 @@ Methods
 
 
 #### Arguments
-* $element **mixed** - &lt;p&gt;элемент&lt;/p&gt;
+* $element **mixed** - &lt;p&gt;element&lt;/p&gt;
 
 
 
@@ -327,7 +404,7 @@ Methods
 
     mixed idfly\components\AdminController::actionDelete(integer $id)
 
-Удалить элемент
+Delete element
 
 
 
@@ -335,7 +412,7 @@ Methods
 
 
 #### Arguments
-* $id **integer** - &lt;p&gt;идентификатор элемента&lt;/p&gt;
+* $id **integer** - &lt;p&gt;element ID&lt;/p&gt;
 
 
 
@@ -343,7 +420,20 @@ Methods
 
     \yii\data\ActiveDataProvider idfly\components\AdminController::_getList()
 
-Получить отфильтрованный список данных
+Get filtered data list
+
+
+
+* Visibility: **protected**
+
+
+
+
+### _getQuery
+
+    mixed idfly\components\AdminController::_getQuery()
+
+
 
 
 
@@ -356,8 +446,8 @@ Methods
 
     array idfly\components\AdminController::getFieldsInputs(\yii\widgets\ActiveForm $form, mixed $element)
 
-Получить поля формы элемента; позволяет выборочно переопределить поля
-формы для элемента в дочернем классе следующим образом:
+Get the form element field; allows to selectively override the field
+of form for element in derived class as follows:
   return [
       'password' => $form->field($element, 'property')->input('password')
   ];
@@ -368,8 +458,8 @@ Methods
 
 
 #### Arguments
-* $form **yii\widgets\ActiveForm** - &lt;p&gt;форма&lt;/p&gt;
-* $element **mixed** - &lt;p&gt;элемент&lt;/p&gt;
+* $form **yii\widgets\ActiveForm** - &lt;p&gt;form&lt;/p&gt;
+* $element **mixed** - &lt;p&gt;element&lt;/p&gt;
 
 
 
@@ -377,7 +467,7 @@ Methods
 
     string idfly\components\AdminController::_getTitle(string $type)
 
-Получить заголовок раздела
+Get the title of the section
 
 
 
@@ -385,66 +475,7 @@ Methods
 
 
 #### Arguments
-* $type **string** - &lt;p&gt;тип раздела&lt;/p&gt;
-
-
-
-### getQuery
-
-    \yii\db\ActiveQuery idfly\components\AdminController::getQuery(\yii\db\ActiveQuery $query, array $get)
-
-Получить запрос для выбора элементов
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $query **yii\db\ActiveQuery** - &lt;p&gt;запрос для модификации; если null -
-будет создан новый запрос&lt;/p&gt;
-* $get **array** - &lt;p&gt;данные из get запроса; если null - будет использован
-$_GET&lt;/p&gt;
-
-
-
-### _getSearchQuery
-
-    \yii\db\ActiveQuery idfly\components\AdminController::_getSearchQuery(string $table, \yii\db\ActiveQuery $query, array $get, array $searchKeys, array $queryKeys)
-
-Создать запрос для фильтрации элементов
-
-
-
-* Visibility: **protected**
-
-
-#### Arguments
-* $table **string** - &lt;p&gt;таблица&lt;/p&gt;
-* $query **yii\db\ActiveQuery** - &lt;p&gt;запрос, в который устновить условия
-поиска&lt;/p&gt;
-* $get **array** - &lt;p&gt;данные, на основе которых устновить запрос&lt;/p&gt;
-* $searchKeys **array** - &lt;p&gt;ключи массива данных, которые можно использовать
-для составления запроса&lt;/p&gt;
-* $queryKeys **array** - &lt;p&gt;поля таблицы, в которых необходимо производвить
-или-поиск по запросу $get[&#039;query&#039;]&lt;/p&gt;
-
-
-
-### _getLikeQuery
-
-    \yii\db\ActiveQuery idfly\components\AdminController::_getLikeQuery(\yii\db\ActiveQuery $query, array $queryKeys)
-
-Получить запрос для или-фильтрации по списку полей
-
-
-
-* Visibility: **protected**
-
-
-#### Arguments
-* $query **yii\db\ActiveQuery** - &lt;p&gt;[description]&lt;/p&gt;
-* $queryKeys **array** - &lt;p&gt;ключи, по которым можно фильтровать&lt;/p&gt;
+* $type **string** - &lt;p&gt;type of section&lt;/p&gt;
 
 
 
@@ -452,8 +483,7 @@ $_GET&lt;/p&gt;
 
     string idfly\components\AdminController::_getKey(boolean $many)
 
-Получить идентификатор контроллера для использования в названиях
-переменных
+Get the controller ID for usage in variables names
 
 
 
@@ -461,17 +491,16 @@ $_GET&lt;/p&gt;
 
 
 #### Arguments
-* $many **boolean** - &lt;p&gt;во множественном числе&lt;/p&gt;
+* $many **boolean** - &lt;p&gt;in plural&lt;/p&gt;
 
 
 
 ### _save
 
-     idfly\components\AdminController::_save(mixed $element)
+    boolean idfly\components\AdminController::_save(mixed $element)
 
-Сохранить элемент; выполняется только в пост-запросе; если элемент
-был сохранён, произойдёт переход на предыдущуюю страницу или страницу
-списка данных
+Save the element; executes only in a post-query; if element was saved
+will be a transition to the previous page or the page with data list
 
 
 
@@ -479,7 +508,7 @@ $_GET&lt;/p&gt;
 
 
 #### Arguments
-* $element **mixed** - &lt;p&gt;элемент для сохранения&lt;/p&gt;
+* $element **mixed** - &lt;p&gt;element for saving&lt;/p&gt;
 
 
 
@@ -487,7 +516,7 @@ $_GET&lt;/p&gt;
 
     string idfly\components\AdminController::_resolveView(string $view, boolean $fullPath)
 
-Найти view и вернуть его путь
+Find the view and return it's path
 
 
 
@@ -495,8 +524,8 @@ $_GET&lt;/p&gt;
 
 
 #### Arguments
-* $view **string** - &lt;p&gt;идентификатор view (например, index или update)&lt;/p&gt;
-* $fullPath **boolean** - &lt;p&gt;веруть полный путь к view&lt;/p&gt;
+* $view **string** - &lt;p&gt;view ID (for example, index or update)&lt;/p&gt;
+* $fullPath **boolean** - &lt;p&gt;returns full path to view&lt;/p&gt;
 
 
 
@@ -504,7 +533,7 @@ $_GET&lt;/p&gt;
 
     mixed idfly\components\AdminController::_registerJs(string $type)
 
-Зарегестрировать функцию js для выполнения
+Register the js function for execution
 
 
 
@@ -512,7 +541,7 @@ $_GET&lt;/p&gt;
 
 
 #### Arguments
-* $type **string** - &lt;p&gt;тип функции&lt;/p&gt;
+* $type **string** - &lt;p&gt;function type&lt;/p&gt;
 
 
 
@@ -540,7 +569,7 @@ get-параметрах;
 
 ### _getElement
 
-    \yii\base\Model idfly\components\Controller::_getElement(integer $id, string $class)
+    \yii\base\Model idfly\components\Controller::_getElement(integer|array $id, string $class)
 
 Найти элемент с заданным id и заданным классом; если элемент не найден,
 то будет выброшено исключение; если класс не задан, то будет использован
@@ -554,7 +583,27 @@ get-параметрах;
 
 
 #### Arguments
-* $id **integer** - &lt;p&gt;идентификатор&lt;/p&gt;
+* $id **integer|array** - &lt;p&gt;идентификатор или условие where по которому
+выполнять поиск в виде [&#039;key&#039; =&gt; &#039;value&#039;]&lt;/p&gt;
 * $class **string** - &lt;p&gt;класс&lt;/p&gt;
+
+
+
+### registerMetaTags
+
+    mixed idfly\components\Controller::registerMetaTags(\yii\base\View $view, array $metaArray)
+
+Заполнить мета-теги страницы
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [idfly\components\Controller](idfly-components-Controller.md)
+
+
+#### Arguments
+* $view **yii\base\View** - &lt;p&gt;объект представления&lt;/p&gt;
+* $metaArray **array** - &lt;p&gt;массив с данными&lt;/p&gt;
 
 

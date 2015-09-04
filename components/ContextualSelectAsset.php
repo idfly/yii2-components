@@ -3,7 +3,7 @@
 namespace idfly\components;
 
 /**
- * Ассеты дэйтпикера
+ * DatePicker assets
  */
 class ContextualSelectAsset extends \yii\web\AssetBundle
 {
