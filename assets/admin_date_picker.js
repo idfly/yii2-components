@@ -1,6 +1,6 @@
 IdFly.Components.AdminDatePicker = {
 
-    bind: function(element) {
+    bind: function(element, options) {
         var display =
             element.
             clone().
@@ -17,11 +17,15 @@ IdFly.Components.AdminDatePicker = {
             display.val(dateParts.reverse().join('.'));
         }
 
-        display.datepicker({
+        var localOptions = {
             altField: element,
             altFormat: 'yy-mm-dd',
             dateFormat: 'dd.mm.yy',
-        });
+        };
+
+        localOptions = $.extend({}, localOptions, options);
+
+        display.datepicker(localOptions);
     },
 
 };
