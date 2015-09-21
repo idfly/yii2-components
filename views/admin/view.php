@@ -5,7 +5,7 @@ use yii\helpers\Html;
 ?>
 
 <?php if(false && \Yii::$app->request->isAjax): ?>
-    <?php require $_cardBody ?>
+    <?php require $_viewBody ?>
 <?php else: ?>
     <section class="panel">
         <div class="panel-heading with-actions clearfix">
@@ -20,7 +20,7 @@ use yii\helpers\Html;
             </div>
         </div>
         <div class="panel-body">
-            <?php require $_cardBody ?>
+            <?php require $_viewBody ?>
         </div>
     </section>
 <?php endif ?>

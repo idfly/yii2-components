@@ -181,9 +181,7 @@ class AdminController extends \idfly\components\Controller
     {
         $element = $this->_getElement($id);
         $view = $this->_resolveView('view');
-
         $this->_registerJs('view');
-        $key = $this->_getKey();
         $data = $this->_getViewData($element);
 
         return $this->_render($view, $data);
@@ -193,7 +191,7 @@ class AdminController extends \idfly\components\Controller
     {
         $data = [
             $this->_getKey(false) => $element,
-            '_key' => $key,
+            '_key' => $this->_getKey(),
             '_keyOne' => $this->_getKey(false),
             '_element' => $element,
             '_viewBody' => $this->_resolveView('view-body', true),
