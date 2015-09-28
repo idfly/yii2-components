@@ -461,12 +461,17 @@ class AdminController extends \idfly\components\Controller
     /**
      * Get the controller ID for usage in variables names
      * @param  boolean $many in plural
+     * @param  boolean $dashCase
      * @return string
      */
-    protected function _getKey($many = true)
+    protected function _getKey($many = true, $dashCase = false)
     {
         $key = preg_replace('{^.*?\\\\([^\\\\]+)Controller$}', '$1',
             self::className());
+
+        if($dashCase) {
+            $key = preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1-', $key);
+        }
 
         $key = strtolower($key);
 
@@ -508,8 +513,8 @@ class AdminController extends \idfly\components\Controller
      */
     protected function _resolveView($view, $fullPath = false)
     {
-        $path = $this->module->getViewPath() . '/' . $this->_getKey() .
-            '/' . $view . '.php';
+        $path = $this->module->getViewPath() . '/' .
+            $this->_getKey(true, true) . '/' . $view . '.php';
 
         if(file_exists($path)) {
             if($fullPath) {
@@ -518,6 +523,7 @@ class AdminController extends \idfly\components\Controller
 
             return $view;
         }
+
         $basePath = \yii::getAlias('@app');
         $path = $this->viewPath . $view . '.php';
 
